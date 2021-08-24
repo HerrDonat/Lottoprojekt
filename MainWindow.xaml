@@ -7,13 +7,13 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800" Background="#04c582" ResizeMode="NoResize">
     <Grid>
-        <TextBox Name="numberOne" HorizontalAlignment="Left" Height="39" Margin="21,43,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="57"/>
-        <TextBox Name="numberTwo" HorizontalAlignment="Left" Height="39" Margin="107,43,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="57"/>
-        <TextBox Name="numberThree" HorizontalAlignment="Left" Height="39" Margin="184,43,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="57"/>
-        <TextBox Name="numberFour" HorizontalAlignment="Left" Height="39" Margin="265,43,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="57"/>
-        <TextBox Name="numberFive" HorizontalAlignment="Left" Height="39" Margin="344,43,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="56"/>
-        <TextBox Name="numberSix" HorizontalAlignment="Left" Height="39" Margin="424,43,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="57"/>
-        <TextBox Name="numberSuper" HorizontalAlignment="Left" Height="39" Margin="532,43,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="57"/>
+        <TextBox Name="LottoBoxOne" HorizontalAlignment="Left" Height="39" Margin="21,43,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="57"/>
+        <TextBox Name="LottoBoxTwo" HorizontalAlignment="Left" Height="39" Margin="107,43,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="57"/>
+        <TextBox Name="LottoBoxThree" HorizontalAlignment="Left" Height="39" Margin="184,43,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="57"/>
+        <TextBox Name="LottoBoxFour" HorizontalAlignment="Left" Height="39" Margin="265,43,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="57"/>
+        <TextBox Name="LottoBoxFive" HorizontalAlignment="Left" Height="39" Margin="344,43,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="56"/>
+        <TextBox Name="LottoBoxSix" HorizontalAlignment="Left" Height="39" Margin="424,43,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="57"/>
+        <TextBox Name="LottoBoxSuper" HorizontalAlignment="Left" Height="39" Margin="532,43,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="57"/>
         <Button x:Name="history" Content="Meine letzten Ziehungen" HorizontalAlignment="Left" Height="55" Margin="648,335,0,0" VerticalAlignment="Top" Width="152" Click="history_Click"/>
         <Label Content="Zahl1" HorizontalAlignment="Left" Height="29" Margin="21,9,0,0" VerticalAlignment="Top" Width="57"/>
         <Label Content="Zahl2" HorizontalAlignment="Left" Height="29" Margin="107,10,0,0" VerticalAlignment="Top" Width="57"/>

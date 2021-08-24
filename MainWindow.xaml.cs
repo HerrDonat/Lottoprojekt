@@ -27,13 +27,13 @@ namespace Lottoprojekt
             {
                 ApplyNumbers.Content = "Ziehung starten";
                 MitarbeiterText.Visibility = Visibility.Visible;
-                numberOne.IsEnabled = false;
-                numberTwo.IsEnabled = false;
-                numberThree.IsEnabled = false;
-                numberFour.IsEnabled = false;
-                numberFive.IsEnabled = false;
-                numberSix.IsEnabled = false;
-                numberSuper.IsEnabled = false;
+                LottoBoxOne.IsEnabled = false;
+                LottoBoxTwo.IsEnabled = false;
+                LottoBoxThree.IsEnabled = false;
+                LottoBoxFour.IsEnabled = false;
+                LottoBoxFive.IsEnabled = false;
+                LottoBoxSix.IsEnabled = false;
+                LottoBoxSuper.IsEnabled = false;
                 UserEID.Text = "";              //Name des Users muss hier rein
             }
         }
@@ -82,13 +82,13 @@ namespace Lottoprojekt
                         {
                             random7 = rand.Next(1, 49);
                         }
-                        numberOne.Text = random1.ToString();
-                        numberTwo.Text = random2.ToString();
-                        numberThree.Text = random3.ToString();
-                        numberFour.Text = random4.ToString();
-                        numberFive.Text = random5.ToString();
-                        numberSix.Text = random6.ToString();
-                        numberSuper.Text = random7.ToString();
+                        LottoBoxOne.Text = random1.ToString();
+                        LottoBoxTwo.Text = random2.ToString();
+                        LottoBoxThree.Text = random3.ToString();
+                        LottoBoxFour.Text = random4.ToString();
+                        LottoBoxFive.Text = random5.ToString();
+                        LottoBoxSix.Text = random6.ToString();
+                        LottoBoxSuper.Text = random7.ToString();
                         break;
                     case MessageBoxResult.No:
                         MessageBox.Show("Die Ziehung wurde abgebrochen.");
@@ -103,7 +103,7 @@ namespace Lottoprojekt
                     {
                         sqlCon.Open();
                     }                                                                                                                               //Hier muss die ID gegen Daten der DB ausgetauscht werden, damit immer die Ziehungen derjenigen Person zugewiesen werden kann, die angemeldet ist
-                    String query = "INSERT INTO tblZiehungen (Datum, Ziehung1, Ziehung2, Ziehung3, Ziehung4, Ziehung5, Ziehung6, ZiehungSuper) values('" + DateTime.Now + "' ,'" + this.numberOne.Text + "', '" + this.numberTwo.Text + "', '" + this.numberThree.Text + "', '" + this.numberFour.Text + "', '" + this.numberFive.Text + "', '" + this.numberSix.Text + "', '" + this.numberSuper.Text + "')";
+                    String query = "INSERT INTO tblZiehungen (Datum, Ziehung1, Ziehung2, Ziehung3, Ziehung4, Ziehung5, Ziehung6, ZiehungSuper) values('" + DateTime.Now + "' ,'" + this.LottoBoxOne.Text + "', '" + this.LottoBoxTwo.Text + "', '" + this.LottoBoxThree.Text + "', '" + this.LottoBoxFour.Text + "', '" + this.LottoBoxFive.Text + "', '" + this.LottoBoxSix.Text + "', '" + this.LottoBoxSuper.Text + "')";
                     SqlCommand sqlCmd = new SqlCommand(query, sqlCon);
                     sqlCmd.ExecuteNonQuery();
                     sqlCmd.CommandType = CommandType.Text;
@@ -122,13 +122,13 @@ namespace Lottoprojekt
             {
                 try
                 {
-                    int number1 = Int32.Parse(numberOne.Text);
-                    int number2 = Int32.Parse(numberTwo.Text);
-                    int number3 = Int32.Parse(numberThree.Text);
-                    int number4 = Int32.Parse(numberFour.Text);
-                    int number5 = Int32.Parse(numberFive.Text);
-                    int number6 = Int32.Parse(numberSix.Text);
-                    int numberS = Int32.Parse(numberSuper.Text);
+                    int number1 = Int32.Parse(LottoBoxOne.Text);
+                    int number2 = Int32.Parse(LottoBoxTwo.Text);
+                    int number3 = Int32.Parse(LottoBoxThree.Text);
+                    int number4 = Int32.Parse(LottoBoxFour.Text);
+                    int number5 = Int32.Parse(LottoBoxFive.Text);
+                    int number6 = Int32.Parse(LottoBoxSix.Text);
+                    int numberS = Int32.Parse(LottoBoxSuper.Text);
                     if ((number1 <= 49 && number1 >= 1) && (number2 <= 49 && number2 >= 1) && (number3 <= 49 && number3 >= 1) && (number4 <= 49 && number4 >= 1) && (number5 <= 49 && number5 >= 1) && (number6 <= 49 && number6 >= 1) && (numberS <= 49 && numberS >= 1))
                     {
                         SqlConnection sqlCon = new SqlConnection(@"Data Source=localhost\SQLSERVER; Initial Catalog=LoginDB; Integrated Security=True;");
@@ -139,7 +139,7 @@ namespace Lottoprojekt
                             {
                                 sqlCon.Open();
                             }                                                                                                                               //Hier muss die ID gegen Daten der DB ausgetauscht werden, damit immer die Ziehungen derjenigen Person zugewiesen werden kann, die angemeldet ist
-                            String query = "INSERT INTO tblPickByDate (UserID, Date, Pick1, Pick2, Pick3, Pick4, Pick5, Pick6, PickSuper) values('" + "1" + "' , '" + DateTime.Now + "' ,'" + this.numberOne.Text + "', '" + this.numberTwo.Text + "', '" + this.numberThree.Text + "', '" + this.numberFour.Text + "', '" + this.numberFive.Text + "', '" + this.numberSix.Text + "', '" + this.numberSuper.Text + "')";
+                            String query = "INSERT INTO tblPickByDate (UserID, Date, Pick1, Pick2, Pick3, Pick4, Pick5, Pick6, PickSuper) values('" + "1" + "' , '" + DateTime.Now + "' ,'" + this.LottoBoxOne.Text + "', '" + this.LottoBoxTwo.Text + "', '" + this.LottoBoxThree.Text + "', '" + this.LottoBoxFour.Text + "', '" + this.LottoBoxFive.Text + "', '" + this.LottoBoxSix.Text + "', '" + this.LottoBoxSuper.Text + "')";
                             SqlCommand sqlCmd = new SqlCommand(query, sqlCon);
                             sqlCmd.ExecuteNonQuery();
                             sqlCmd.CommandType = CommandType.Text;
