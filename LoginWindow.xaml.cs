@@ -35,16 +35,6 @@ namespace Lottoprojekt
                 }
                 String query = "SELECT COUNT(1) FROM tblUser WHERE Username=@Username AND Password=@Password";
                 SqlCommand sqlCmd = new SqlCommand(query, sqlCon);
-                //String query2 = "SELECT UserID FROM tblUser WHERE Username=@Username AND Password=@Password";
-                //SqlCommand sqlCmd2 = new SqlCommand(query2, sqlCon);
-                //sqlCmd2.Parameters.AddWithValue("@Username", txtUsername);
-                //using (SqlDataReader oReader = sqlCmd2.ExecuteReader())
-                //{
-                //    while (oReader.Read())
-                //    {
-                //        UserId = oReader["UserID"].ToString();
-                //    }
-                //}
                 sqlCmd.CommandType = System.Data.CommandType.Text;
                 sqlCmd.Parameters.AddWithValue("@Username", txtUsername.Text);
                 sqlCmd.Parameters.AddWithValue("@Password", txtPassword.Password);
