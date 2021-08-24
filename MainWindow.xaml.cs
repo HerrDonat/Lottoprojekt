@@ -42,7 +42,28 @@ namespace Lottoprojekt
                 int numberS = Int32.Parse(numberSuper.Text);
                 if ((number1 <= 49 && number1 >= 1) && (number2 <= 49 && number2 >= 1) && (number3 <= 49 && number3 >= 1) && (number4 <= 49 && number4 >= 1) && (number5 <= 49 && number5 >= 1) && (number6 <= 49 && number6 >= 1) && (numberS <= 49 && numberS >= 1))
                 {
+                    SqlConnection sqlCon = new SqlConnection(@"Data Source=localhost\SQLSERVER; Initial Catalog=LoginDB; Integrated Security=True;");
                     MessageBox.Show("Alle Werte im Bereich.");
+                    try
+                    {
+                        if (sqlCon.State == ConnectionState.Closed)
+                        {
+                            sqlCon.Open();
+                        }                                                                                                                               //Hier muss die ID gegen Daten der DB ausgetauscht werden, damit immer die Ziehungen derjenigen Person zugewiesen werden kann, die angemeldet ist
+                        String query = "INSERT INTO tblPickByDate (UserID, Date, Pick1, Pick2, Pick3, Pick4, Pick5, Pick6, PickSuper) values('" + "1" + "' , '" + DateTime.Now + "' ,'" + this.numberOne.Text + "', '" + this.numberTwo.Text + "', '" + this.numberThree.Text + "', '" + this.numberFour.Text + "', '" + this.numberFive.Text + "', '" + this.numberSix.Text + "', '" + this.numberSuper.Text + "')";
+                        SqlCommand sqlCmd = new SqlCommand(query, sqlCon);
+                        sqlCmd.ExecuteNonQuery();
+                        sqlCmd.CommandType = CommandType.Text;
+                        int count = Convert.ToInt32(sqlCmd.ExecuteScalar());
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message);
+                    }
+                    finally
+                    {
+                        sqlCon.Close();
+                    }
                 }
                 else
                 {
@@ -53,26 +74,28 @@ namespace Lottoprojekt
             {
                 MessageBox.Show("Nicht alle Werte sind im korrekten Bereich.");
             }
+
+        }
+
+        private void history_Click(object sender, RoutedEventArgs e)
+        {
             SqlConnection sqlCon = new SqlConnection(@"Data Source=localhost\SQLSERVER; Initial Catalog=LoginDB; Integrated Security=True;");
             try
             {
-                if (sqlCon.State == ConnectionState.Closed)
-                {
-                    sqlCon.Open();
-                }
-                String query = "INSERT INTO tblPickByDate (UserID, UserName, Date, Pick1, Pick2, Pick3, Pick4, Pick5, Pick6, PickSuper) values('" + "1" + "' , '" + "Nico" + "' ,'" + DateTime.Now + "' ,'" + this.numberOne.Text + "', '" + this.numberTwo.Text + "', '" + this.numberThree.Text + "', '" + this.numberFour.Text + "', '" + this.numberFive.Text + "', '" + this.numberSix.Text + "', '" + this.numberSuper.Text + "')";
-                SqlCommand sqlCmd = new SqlCommand(query, sqlCon);
-                sqlCmd.ExecuteNonQuery();
-                sqlCmd.CommandType = CommandType.Text;
-                int count = Convert.ToInt32(sqlCmd.ExecuteScalar());
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-            finally
-            {
+                sqlCon.Open();
+                string query = "select * from tblPickByDate ";
+                SqlCommand cmd = new SqlCommand(query, sqlCon);
+                cmd.ExecuteNonQuery();
+                SqlDataAdapter dataAd = new SqlDataAdapter(cmd);
+                DataTable dt = new DataTable("tblPickByDate");
+                dataAd.Fill(dt);
+                dataGrid1.ItemsSource = dt.DefaultView;
+                dataAd.Update(dt);
                 sqlCon.Close();
+            }
+            catch (Exception)
+            {
+
             }
         }
     }
