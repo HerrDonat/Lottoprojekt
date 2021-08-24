@@ -18,61 +18,130 @@ using System.Windows.Shapes;
 
 namespace Lottoprojekt
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
     public partial class MainWindow : Window
     {
         public MainWindow()
         {
             InitializeComponent();
+            if (true) //Wenn User Mitarbeiter ist, dann
+            {
+                ApplyNumbers.Content = "Ziehung starten";
+                MitarbeiterText.Visibility = Visibility.Visible;
+                numberOne.IsEnabled = false;
+                numberTwo.IsEnabled = false;
+                numberThree.IsEnabled = false;
+                numberFour.IsEnabled = false;
+                numberFive.IsEnabled = false;
+                numberSix.IsEnabled = false;
+                numberSuper.IsEnabled = false;
+                UserEID.Text = "";              //Name des Users muss hier rein
+            }
         }
 
 
         private void UploadTipp(object sender, RoutedEventArgs e)
         {
-            try
+            int random1 = 0;
+            int random2 = 0;
+            int random3 = 0;
+            int random4 = 0;
+            int random5 = 0;
+            int random6 = 0;
+            int random7 = 0;
+            if (ApplyNumbers.Content.ToString() == "Ziehung starten")
             {
-                int number1 = Int32.Parse(numberOne.Text);
-                int number2 = Int32.Parse(numberTwo.Text);
-                int number3 = Int32.Parse(numberThree.Text);
-                int number4 = Int32.Parse(numberFour.Text);
-                int number5 = Int32.Parse(numberFive.Text);
-                int number6 = Int32.Parse(numberSix.Text);
-                int numberS = Int32.Parse(numberSuper.Text);
-                if ((number1 <= 49 && number1 >= 1) && (number2 <= 49 && number2 >= 1) && (number3 <= 49 && number3 >= 1) && (number4 <= 49 && number4 >= 1) && (number5 <= 49 && number5 >= 1) && (number6 <= 49 && number6 >= 1) && (numberS <= 49 && numberS >= 1))
+                MessageBoxResult result = MessageBox.Show("Möchten Sie eine neue Ziehung starten?", "Ziehung starten", MessageBoxButton.YesNo);
+                switch (result)
                 {
-                    SqlConnection sqlCon = new SqlConnection(@"Data Source=localhost\SQLSERVER; Initial Catalog=LoginDB; Integrated Security=True;");
-                    MessageBox.Show("Alle Werte im Bereich.");
-                    try
-                    {
-                        if (sqlCon.State == ConnectionState.Closed)
+                    case MessageBoxResult.Yes:
+                        //Ziehung starten
+                        var rand = new Random();
+                        random1 = rand.Next(1, 49);
+                        while (random2 == random1)
                         {
-                            sqlCon.Open();
-                        }                                                                                                                               //Hier muss die ID gegen Daten der DB ausgetauscht werden, damit immer die Ziehungen derjenigen Person zugewiesen werden kann, die angemeldet ist
-                        String query = "INSERT INTO tblPickByDate (UserID, Date, Pick1, Pick2, Pick3, Pick4, Pick5, Pick6, PickSuper) values('" + "1" + "' , '" + DateTime.Now + "' ,'" + this.numberOne.Text + "', '" + this.numberTwo.Text + "', '" + this.numberThree.Text + "', '" + this.numberFour.Text + "', '" + this.numberFive.Text + "', '" + this.numberSix.Text + "', '" + this.numberSuper.Text + "')";
-                        SqlCommand sqlCmd = new SqlCommand(query, sqlCon);
-                        sqlCmd.ExecuteNonQuery();
-                        sqlCmd.CommandType = CommandType.Text;
-                        int count = Convert.ToInt32(sqlCmd.ExecuteScalar());
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show(ex.Message);
-                    }
-                    finally
-                    {
-                        sqlCon.Close();
-                    }
-                }
-                else
-                {
-                    MessageBox.Show("Sie haben falsche Werte in die Felder eingegeben");
+                            random2 = rand.Next(1, 49);
+                        }
+                        while (random3 == random2 || random3 == random1)    //Bug? Ist 0 bei den Ziehungen
+                        {
+                            random3 = rand.Next(1, 49);
+                        }
+                        while (random4 == random3 || random4 == random2 || random4 == random1)
+                        {
+                            random4 = rand.Next(1, 49);
+                        }
+                        while (random5 == random4 || random5 == random3 || random5 == random2 || random5 == random1)
+                        {
+                            random5 = rand.Next(1, 49);
+
+                        }
+                        while (random6 == random5 || random6 == random4 || random6 == random3 || random6 == random2 || random6 == random1)
+                        {
+                            random6 = rand.Next(1, 49);
+                        }
+                        while (random7 == random6 || random7 == random5 || random7 == random4 || random7 == random3 || random7 == random2 || random7 == random1)
+                        {
+                            random7 = rand.Next(1, 49);
+                        }
+                        numberOne.Text = random1.ToString();
+                        numberTwo.Text = random2.ToString();
+                        numberThree.Text = random3.ToString();
+                        numberFour.Text = random4.ToString();
+                        numberFive.Text = random5.ToString();
+                        numberSix.Text = random6.ToString();
+                        numberSuper.Text = random7.ToString();
+                        break;
+                    case MessageBoxResult.No:
+                        MessageBox.Show("Die Ziehung wurde abgebrochen");
+                        break;
+                    default:
+                        break;
                 }
             }
-            catch (Exception)
+            else
             {
-                MessageBox.Show("Nicht alle Werte sind im korrekten Bereich.");
+                try
+                {
+                    int number1 = Int32.Parse(numberOne.Text);
+                    int number2 = Int32.Parse(numberTwo.Text);
+                    int number3 = Int32.Parse(numberThree.Text);
+                    int number4 = Int32.Parse(numberFour.Text);
+                    int number5 = Int32.Parse(numberFive.Text);
+                    int number6 = Int32.Parse(numberSix.Text);
+                    int numberS = Int32.Parse(numberSuper.Text);
+                    if ((number1 <= 49 && number1 >= 1) && (number2 <= 49 && number2 >= 1) && (number3 <= 49 && number3 >= 1) && (number4 <= 49 && number4 >= 1) && (number5 <= 49 && number5 >= 1) && (number6 <= 49 && number6 >= 1) && (numberS <= 49 && numberS >= 1))
+                    {
+                        SqlConnection sqlCon = new SqlConnection(@"Data Source=localhost\SQLSERVER; Initial Catalog=LoginDB; Integrated Security=True;");
+                        MessageBox.Show("Alle Werte im Bereich.");
+                        try
+                        {
+                            if (sqlCon.State == ConnectionState.Closed)
+                            {
+                                sqlCon.Open();
+                            }                                                                                                                               //Hier muss die ID gegen Daten der DB ausgetauscht werden, damit immer die Ziehungen derjenigen Person zugewiesen werden kann, die angemeldet ist
+                            String query = "INSERT INTO tblPickByDate (UserID, Date, Pick1, Pick2, Pick3, Pick4, Pick5, Pick6, PickSuper) values('" + "1" + "' , '" + DateTime.Now + "' ,'" + this.numberOne.Text + "', '" + this.numberTwo.Text + "', '" + this.numberThree.Text + "', '" + this.numberFour.Text + "', '" + this.numberFive.Text + "', '" + this.numberSix.Text + "', '" + this.numberSuper.Text + "')";
+                            SqlCommand sqlCmd = new SqlCommand(query, sqlCon);
+                            sqlCmd.ExecuteNonQuery();
+                            sqlCmd.CommandType = CommandType.Text;
+                            int count = Convert.ToInt32(sqlCmd.ExecuteScalar());
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show(ex.Message);
+                        }
+                        finally
+                        {
+                            sqlCon.Close();
+                        }
+                    }
+                    else
+                    {
+                        MessageBox.Show("Sie haben falsche Werte in die Felder eingegeben");
+                    }
+                }
+                catch (Exception)
+                {
+                    MessageBox.Show("Nicht alle Werte sind im korrekten Bereich.");
+                }
             }
 
         }

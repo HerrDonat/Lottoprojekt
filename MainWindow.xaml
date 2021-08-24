@@ -22,9 +22,10 @@
         <Label Content="Zahl5" HorizontalAlignment="Left" Height="29" Margin="344,10,0,0" VerticalAlignment="Top" Width="57"/>
         <Label Content="Zahl6" HorizontalAlignment="Left" Height="29" Margin="424,10,0,0" VerticalAlignment="Top" Width="56"/>
         <Label Content="Superzahl" HorizontalAlignment="Left" Height="29" Margin="532,7,0,0" VerticalAlignment="Top" Width="72"/>
-        <Button Content="Tipps bestätigen" HorizontalAlignment="Left" Height="36" Margin="663,44,0,0" VerticalAlignment="Top" Width="100" Click="UploadTipp"/>
+        <Button x:Name="ApplyNumbers" Content="Tipps bestätigen" HorizontalAlignment="Left" Height="36" Margin="663,44,0,0" VerticalAlignment="Top" Width="100" Click="UploadTipp"/>
         <TextBox x:Name="UserEID" HorizontalAlignment="Left" Height="41" Margin="0,393,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="126" IsEnabled="False"/>
         <Image x:Name="LottoImage" HorizontalAlignment="Center" Height="222" VerticalAlignment="Top" Width="354" Source="index.png" Margin="0,212,0,0"/>
-        <DataGrid x:Name="dataGrid1" AutoGenerateColumns="True" HorizontalAlignment="Left" Height="209" Margin="605,0,0,0" VerticalAlignment="Center" Width="195"/>
+        <DataGrid x:Name="dataGrid1" AutoGenerateColumns="True" HorizontalAlignment="Left" Height="209" Margin="605,114,0,0" VerticalAlignment="Top" Width="195"/>
+        <Label x:Name="MitarbeiterText" Content="Sie sind als Mitarbeiter angemeldet." HorizontalAlignment="Center" Height="48" Margin="0,164,0,0" VerticalAlignment="Top" Width="252" FontWeight="Bold" Visibility="Hidden"/>
     </Grid>
 </Window>
