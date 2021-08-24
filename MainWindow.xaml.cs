@@ -91,10 +91,31 @@ namespace Lottoprojekt
                         numberSuper.Text = random7.ToString();
                         break;
                     case MessageBoxResult.No:
-                        MessageBox.Show("Die Ziehung wurde abgebrochen");
+                        MessageBox.Show("Die Ziehung wurde abgebrochen.");
                         break;
                     default:
                         break;
+                }
+                SqlConnection sqlCon = new SqlConnection(@"Data Source=localhost\SQLSERVER; Initial Catalog=LoginDB; Integrated Security=True;");
+                try
+                {
+                    if (sqlCon.State == ConnectionState.Closed)
+                    {
+                        sqlCon.Open();
+                    }                                                                                                                               //Hier muss die ID gegen Daten der DB ausgetauscht werden, damit immer die Ziehungen derjenigen Person zugewiesen werden kann, die angemeldet ist
+                    String query = "INSERT INTO tblZiehungen (Datum, Ziehung1, Ziehung2, Ziehung3, Ziehung4, Ziehung5, Ziehung6, ZiehungSuper) values('" + DateTime.Now + "' ,'" + this.numberOne.Text + "', '" + this.numberTwo.Text + "', '" + this.numberThree.Text + "', '" + this.numberFour.Text + "', '" + this.numberFive.Text + "', '" + this.numberSix.Text + "', '" + this.numberSuper.Text + "')";
+                    SqlCommand sqlCmd = new SqlCommand(query, sqlCon);
+                    sqlCmd.ExecuteNonQuery();
+                    sqlCmd.CommandType = CommandType.Text;
+                    int count = Convert.ToInt32(sqlCmd.ExecuteScalar());
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+                finally
+                {
+                    sqlCon.Close();
                 }
             }
             else
