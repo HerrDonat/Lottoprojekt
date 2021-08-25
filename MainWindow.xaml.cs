@@ -41,13 +41,14 @@ namespace Lottoprojekt
 
         private void UploadTipp(object sender, RoutedEventArgs e)
         {
-            int random1 = 0;
-            int random2 = 0;
-            int random3 = 0;
-            int random4 = 0;
-            int random5 = 0;
-            int random6 = 0;
-            int random7 = 0;
+            var rand = new Random();
+            int random1 = rand.Next(1,50);
+            int random2 = rand.Next(1, 50);
+            int random3 = rand.Next(1, 50);
+            int random4 = rand.Next(1, 50);
+            int random5 = rand.Next(1, 50);
+            int random6 = rand.Next(1, 50);
+            int random7 = rand.Next(1, 50);
             if (ApplyNumbers.Content.ToString() == "Ziehung starten")
             {
                 MessageBoxResult result = MessageBox.Show("Möchten Sie eine neue Ziehung starten?", "Ziehung starten", MessageBoxButton.YesNo);
@@ -55,32 +56,31 @@ namespace Lottoprojekt
                 {
                     case MessageBoxResult.Yes:
                         //Ziehung starten
-                        var rand = new Random();
-                        random1 = rand.Next(1, 49);
-                        while (random2 == random1)
+                        random1 = rand.Next(1, 50);
+                        if (random2 == random1)
                         {
-                            random2 = rand.Next(1, 49);
+                            random2 = rand.Next(1, 50);
                         }
-                        while (random3 == random2 || random3 == random1)    //Bug? Ist 0 bei den Ziehungen
+                        if (random3 == random2 || random3 == random1)    //Bug? Ist 0 bei den Ziehungen
                         {
-                            random3 = rand.Next(1, 49);
+                            random3 = rand.Next(1, 50);
                         }
-                        while (random4 == random3 || random4 == random2 || random4 == random1)
+                        if (random4 == random3 || random4 == random2 || random4 == random1)
                         {
-                            random4 = rand.Next(1, 49);
+                            random4 = rand.Next(1, 50);
                         }
-                        while (random5 == random4 || random5 == random3 || random5 == random2 || random5 == random1)
+                        if (random5 == random4 || random5 == random3 || random5 == random2 || random5 == random1)
                         {
-                            random5 = rand.Next(1, 49);
+                            random5 = rand.Next(1, 50);
 
                         }
-                        while (random6 == random5 || random6 == random4 || random6 == random3 || random6 == random2 || random6 == random1)
+                        if (random6 == random5 || random6 == random4 || random6 == random3 || random6 == random2 || random6 == random1)
                         {
-                            random6 = rand.Next(1, 49);
+                            random6 = rand.Next(1, 50);
                         }
-                        while (random7 == random6 || random7 == random5 || random7 == random4 || random7 == random3 || random7 == random2 || random7 == random1)
+                        if (random7 == random6 || random7 == random5 || random7 == random4 || random7 == random3 || random7 == random2 || random7 == random1)
                         {
-                            random7 = rand.Next(1, 49);
+                            random7 = rand.Next(1, 50);
                         }
                         LottoBoxOne.Text = random1.ToString();
                         LottoBoxTwo.Text = random2.ToString();
