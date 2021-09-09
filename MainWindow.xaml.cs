@@ -39,37 +39,16 @@ namespace Lottoprojekt
             }
         }
 
-        static void Main(string[] args)
-        {
-            TestConnection();
-            Console.ReadKey();
-        }
-        private static void TestConnection()
-        {
-            using(NpgsqlConnection con=GetConnection())
-            {
-                con.Open();
-                if(con.State==ConnectionState.Open)
-                {
-                    Console.WriteLine("Connected");
-                }
-            }
-        }
-        private static NpgsqlConnection GetConnection()
-        {
-            return new NpgsqlConnection(@"Server=localhost; Port=5432; User Id=postgres; Password=lotto; Database=lotto;");
-        }
-
         private void UploadTipp(object sender, RoutedEventArgs e)
         {
             var rand = new Random();
-            int random1 = rand.Next(1,50);
+            int random1 = rand.Next(1, 50);
             int random2 = rand.Next(1, 50);
             int random3 = rand.Next(1, 50);
             int random4 = rand.Next(1, 50);
             int random5 = rand.Next(1, 50);
             int random6 = rand.Next(1, 50);
-            int random7 = rand.Next(1, 50);
+            int random7 = rand.Next(0, 10);
             if (ApplyNumbers.Content.ToString() == "Ziehung starten")
             {
                 MessageBoxResult result = MessageBox.Show("Möchten Sie eine neue Ziehung starten?", "Ziehung starten", MessageBoxButton.YesNo);
@@ -101,7 +80,7 @@ namespace Lottoprojekt
                         }
                         if (random7 == random6 || random7 == random5 || random7 == random4 || random7 == random3 || random7 == random2 || random7 == random1)
                         {
-                            random7 = rand.Next(1, 50);
+                            random7 = rand.Next(0, 10);
                         }
                         LottoBoxOne.Text = random1.ToString();
                         LottoBoxTwo.Text = random2.ToString();
