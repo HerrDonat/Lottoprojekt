@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Npgsql;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
@@ -38,6 +39,26 @@ namespace Lottoprojekt
             }
         }
 
+        static void Main(string[] args)
+        {
+            TestConnection();
+            Console.ReadKey();
+        }
+        private static void TestConnection()
+        {
+            using(NpgsqlConnection con=GetConnection())
+            {
+                con.Open();
+                if(con.State==ConnectionState.Open)
+                {
+                    Console.WriteLine("Connected");
+                }
+            }
+        }
+        private static NpgsqlConnection GetConnection()
+        {
+            return new NpgsqlConnection(@"Server=localhost; Port=5432; User Id=postgres; Password=lotto; Database=lotto;");
+        }
 
         private void UploadTipp(object sender, RoutedEventArgs e)
         {
