@@ -41,8 +41,7 @@ namespace Lottoprojekt
 
 
 
-        private void UploadTipp(object sender, RoutedEventArgs e) //Tipp des Kunden wird hochgeladen, nachdem die Werte überprüft wurden
- master
+        private void StarteZiehung(object sender, RoutedEventArgs e) //Tipp des Kunden wird hochgeladen, nachdem die Werte überprüft wurden
         {
             var rand = new Random();
             int random1 = rand.Next(1, 50);
@@ -60,11 +59,11 @@ namespace Lottoprojekt
                     case MessageBoxResult.Yes:
                         //Ziehung starten
                         random1 = rand.Next(1, 50);
-                        if (random2 == random1)     //Hier wird verhindert dass bei einer Ziehung keine Zahl doppelt vorkommt
+                        if (random2 == random1)     //Hier wird verhindert dass bei einer Ziehung eine Zahl doppelt vorkommt
                         {
                             random2 = rand.Next(1, 50);
                         }
-                        if (random3 == random2 || random3 == random1)    //Bug? Ist 0 bei den Ziehungen
+                        if (random3 == random2 || random3 == random1)
                         {
                             random3 = rand.Next(1, 50);
                         }
@@ -99,7 +98,8 @@ namespace Lottoprojekt
                     default:
                         break;
                 }
-                SqlConnection sqlCon = new SqlConnection(@"Data Source=localhost\SQLSERVER; Initial Catalog=LoginDB; Integrated Security=True;"); //Verbindung zu DB wird hergestellt
+                //SqlConnection sqlCon = new SqlConnection(@"Data Source=localhost\SQLSERVER; Initial Catalog=LoginDB; Integrated Security=True;"); //Verbindung zu DB wird hergestellt
+                SqlConnection sqlCon = new SqlConnection(@"Data Source=sql11.freesqldatabase.com; user=sql11436781; password:aidQQETvbR; database:sql11436781; port:3306");
                 try
                 {
                     if (sqlCon.State == ConnectionState.Closed)
@@ -170,7 +170,7 @@ namespace Lottoprojekt
 
         }
 
-        private void history_Click(object sender, RoutedEventArgs e)
+        private void ZeigeLetzteZiehungen(object sender, RoutedEventArgs e)
         {
             SqlConnection sqlCon = new SqlConnection(@"Data Source=localhost\SQLSERVER; Initial Catalog=LoginDB; Integrated Security=True;");
             try
