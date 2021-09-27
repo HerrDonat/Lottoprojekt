@@ -119,11 +119,11 @@ namespace Lottoprojekt
                     sqlCon.Close();     //Verbindung zur DB wird beendet
                 }
             } // Ziehung starten, sonst LadeTipHoch
-            else
-            {
-                
-            }
-
+        }
+        
+        private void Gewinnprüfung()
+        {
+            BerechneGewinnKlasse();
         }
         
         private void LadeTipHoch(object sender, RoutedEventArgs e){     //Button muss erstellt werden
