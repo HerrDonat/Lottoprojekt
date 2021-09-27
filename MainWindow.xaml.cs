@@ -23,6 +23,8 @@ namespace Lottoprojekt
     {
         public MainWindow()
         {
+        int korrekteTipps = 0;
+        bool superZahl = false;
             InitializeComponent();
             if (true) //Wenn User Mitarbeiter ist, dann
             {
@@ -80,10 +82,6 @@ namespace Lottoprojekt
                         {
                             random6 = rand.Next(1, 50);
                         }
-                        if (random7 == random6 || random7 == random5 || random7 == random4 || random7 == random3 || random7 == random2 || random7 == random1)
-                        {
-                            random7 = rand.Next(0, 10);
-                        }
                         LottoBoxOne.Text = random1.ToString();
                         LottoBoxTwo.Text = random2.ToString();
                         LottoBoxThree.Text = random3.ToString();
@@ -123,7 +121,13 @@ namespace Lottoprojekt
             } // Ziehung starten, sonst LadeTipHoch
             else
             {
-                try
+                
+            }
+
+        }
+        
+        private void LadeTipHoch(object sender, RoutedEventArgs e){     //Button muss erstellt werden
+            try
                 {
                     int number1 = Int32.Parse(LottoBoxOne.Text);
                     int number2 = Int32.Parse(LottoBoxTwo.Text);
@@ -166,8 +170,37 @@ namespace Lottoprojekt
                 {
                     MessageBox.Show("Nicht alle Werte sind im korrekten Bereich.");
                 }
+        }
+        
+        private int BerechneGewinnKlasse(object sender, RoutedEventArgs e)      //Muss aufgerufen werden, rückgegebene Zahl ist die Gewinnklasse
+        {
+            if(korrekteTipps == 2 && superZahl){
+                return 9;
             }
-
+            else if(korrekteTipps == 3){
+                return 8;
+            }
+            else if(korrekteTipps == 3 && superZahl){
+                return 7;
+            }
+            else if(korrekteTipps == 4){
+                return 6;
+            }
+            else if(korrekteTipps == 4 && superZahl){
+                return 5;
+            }
+            else if(korrekteTipps == 5){
+                return 4;
+            }
+            else if(korrekteTipps == 5 && superZahl){
+                return 3;
+            }
+            else if(korrekteTipps == 6){
+                return 2;
+            }
+            else if(korrekteTipps == 6 && superZahl){
+                return 1;
+            }
         }
 
         private void ZeigeLetzteZiehungen(object sender, RoutedEventArgs e)
