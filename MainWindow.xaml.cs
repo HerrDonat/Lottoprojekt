@@ -42,7 +42,7 @@ namespace Lottoprojekt
 
 
         private void StarteZiehung(object sender, RoutedEventArgs e) //Tipp des Kunden wird hochgeladen, nachdem die Werte überprüft wurden
-        {
+        {       //TODO Funktionen aufteilen in StarteZiehung und LadeTipHoch, da momentan noch beides in derselben Funktion passiert
             var rand = new Random();
             int random1 = rand.Next(1, 50);
             int random2 = rand.Next(1, 50);
@@ -120,7 +120,7 @@ namespace Lottoprojekt
                 {
                     sqlCon.Close();     //Verbindung zur DB wird beendet
                 }
-            }
+            } // Ziehung starten, sonst LadeTipHoch
             else
             {
                 try
@@ -131,7 +131,7 @@ namespace Lottoprojekt
                     int number4 = Int32.Parse(LottoBoxFour.Text);
                     int number5 = Int32.Parse(LottoBoxFive.Text);
                     int number6 = Int32.Parse(LottoBoxSix.Text);
-                    int numberS = Int32.Parse(LottoBoxSuper.Text);  //Kontrollieren, ob die Tipps vom Kunden im gültigen Bereich liegen
+                    int numberS = Int32.Parse(LottoBoxSuper.Text);  //Kontrollieren, ob die Tipps vom Kunden im gültigen Bereich liegen, evtl auf doppelte Zahlen prüfen
                     if ((number1 <= 49 && number1 >= 1) && (number2 <= 49 && number2 >= 1) && (number3 <= 49 && number3 >= 1) && (number4 <= 49 && number4 >= 1) && (number5 <= 49 && number5 >= 1) && (number6 <= 49 && number6 >= 1) && (numberS <= 49 && numberS >= 1))
                     {
                         SqlConnection sqlCon = new SqlConnection(@"Data Source=localhost\SQLSERVER; Initial Catalog=LoginDB; Integrated Security=True;");
@@ -176,7 +176,7 @@ namespace Lottoprojekt
             try
             {
                 sqlCon.Open();
-                string query = "select * from tblPickByDate ";
+                string query = "select * from tblPickByDate ";      //ID des Kunden einfügen, der gerade angemeldet ist
                 SqlCommand cmd = new SqlCommand(query, sqlCon);
                 cmd.ExecuteNonQuery();
                 SqlDataAdapter dataAd = new SqlDataAdapter(cmd);
