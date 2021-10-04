@@ -25,7 +25,7 @@ namespace Lottoprojekt
 
         private void LoginUserBtn(object sender, RoutedEventArgs e)
         {
-            SqlConnection sqlCon = new SqlConnection(@"Data Source=localhost\SQLSERVER; Initial Catalog=LoginDB; Integrated Security=True;");
+            SqlConnection sqlCon = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=D:\Workspace\Lottoprojekt\Database.mdf;Integrated Security=True");
             string UserId;
             try
             {
@@ -33,7 +33,7 @@ namespace Lottoprojekt
                 {
                     sqlCon.Open();
                 }
-                String query = "SELECT COUNT(1) FROM tblUser WHERE Username=@Username AND Password=@Password";
+                String query = "SELECT COUNT(1) FROM Users WHERE Username=@Username AND Password=@Password";
                 SqlCommand sqlCmd = new SqlCommand(query, sqlCon);
                 sqlCmd.CommandType = System.Data.CommandType.Text;
                 sqlCmd.Parameters.AddWithValue("@Username", txtUsername.Text);

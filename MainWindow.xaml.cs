@@ -97,15 +97,15 @@ namespace Lottoprojekt
                         break;
                 }
                 //SqlConnection sqlCon = new SqlConnection(@"Data Source=localhost\SQLSERVER; Initial Catalog=LoginDB; Integrated Security=True;"); //Verbindung zu DB wird hergestellt
-                SqlConnection sqlCon = new SqlConnection(@"Data Source=sql11.freesqldatabase.com; user=sql11436781; password:aidQQETvbR; database:sql11436781; port:3306");
+                SqlConnection sqlCon = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=D:\Workspace\Lottoprojekt\Database.mdf;Integrated Security=True");//Pfad, wo die DB gespeichert ist
                 try
                 {
                     if (sqlCon.State == ConnectionState.Closed)
                     {
                         sqlCon.Open();
-                    }                                                                                                                               //Hier muss die ID gegen Daten der DB ausgetauscht werden, damit immer die Ziehungen derjenigen Person zugewiesen werden kann, die angemeldet ist
-                    String query = "INSERT INTO tblZiehungen (Datum, Ziehung1, Ziehung2, Ziehung3, Ziehung4, Ziehung5, Ziehung6, ZiehungSuper) values('" + DateTime.Now + "' ,'" + this.LottoBoxOne.Text + "', '" + this.LottoBoxTwo.Text + "', '" + this.LottoBoxThree.Text + "', '" + this.LottoBoxFour.Text + "', '" + this.LottoBoxFive.Text + "', '" + this.LottoBoxSix.Text + "', '" + this.LottoBoxSuper.Text + "')";
-                    SqlCommand sqlCmd = new SqlCommand(query, sqlCon);  //Tabelle tblZiehungen mit den Spalten in der oberen Klammer
+                    }                                                     //Bei dieser Zahl muss pro Ziehung immer + 1 gerechnet werden(Id der Ziehung)                                                                         //Hier muss die ID gegen Daten der DB ausgetauscht werden, damit immer die Ziehungen derjenigen Person zugewiesen werden kann, die angemeldet ist
+                    String query = "INSERT INTO PulledNumbers VALUES ('" + 2 + "' ,'" + this.LottoBoxOne.Text + "', '" + this.LottoBoxTwo.Text + "', '" + this.LottoBoxThree.Text + "', '" + this.LottoBoxFour.Text + "', '" + this.LottoBoxFive.Text + "', '" + this.LottoBoxSix.Text + "', '" + this.LottoBoxSuper.Text + "')";
+                    SqlCommand sqlCmd = new SqlCommand(query, sqlCon);//Verbindung klappt, allerdings versucht er immer 2 mal die Daten in die DB zu schreiben, weswegen immer eine Fehlermeldung kommt
                     sqlCmd.ExecuteNonQuery();
                     sqlCmd.CommandType = CommandType.Text;
                     int count = Convert.ToInt32(sqlCmd.ExecuteScalar());
@@ -123,7 +123,7 @@ namespace Lottoprojekt
         
         private void Gewinnprüfung()
         {
-            BerechneGewinnKlasse();
+            //BerechneGewinnKlasse();
         }
         
         private void LadeTipHoch(object sender, RoutedEventArgs e){     //Button muss erstellt werden
@@ -138,7 +138,8 @@ namespace Lottoprojekt
                     int numberS = Int32.Parse(LottoBoxSuper.Text);  //Kontrollieren, ob die Tipps vom Kunden im gültigen Bereich liegen, evtl auf doppelte Zahlen prüfen
                     if ((number1 <= 49 && number1 >= 1) && (number2 <= 49 && number2 >= 1) && (number3 <= 49 && number3 >= 1) && (number4 <= 49 && number4 >= 1) && (number5 <= 49 && number5 >= 1) && (number6 <= 49 && number6 >= 1) && (numberS <= 49 && numberS >= 1))
                     {
-                        SqlConnection sqlCon = new SqlConnection(@"Data Source=localhost\SQLSERVER; Initial Catalog=LoginDB; Integrated Security=True;");
+                        SqlConnection sqlCon = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=D:\Workspace\Lottoprojekt\Database.mdf;Integrated Security=True
+");
                         MessageBox.Show("Alle Werte im Bereich.");
                         try
                         {
@@ -146,7 +147,7 @@ namespace Lottoprojekt
                             {
                                 sqlCon.Open();
                             }                                                                                                                               //Hier muss die ID gegen Daten der DB ausgetauscht werden, damit immer die Ziehungen derjenigen Person zugewiesen werden kann, die angemeldet ist
-                            String query = "INSERT INTO tblPickByDate (UserID, Date, Pick1, Pick2, Pick3, Pick4, Pick5, Pick6, PickSuper) values('" + "1" + "' , '" + DateTime.Now + "' ,'" + this.LottoBoxOne.Text + "', '" + this.LottoBoxTwo.Text + "', '" + this.LottoBoxThree.Text + "', '" + this.LottoBoxFour.Text + "', '" + this.LottoBoxFive.Text + "', '" + this.LottoBoxSix.Text + "', '" + this.LottoBoxSuper.Text + "')";
+                            String query = "INSERT INTO PulledNumbers VALUES ('" + "1" + "' ,'" + this.LottoBoxOne.Text + "', '" + this.LottoBoxTwo.Text + "', '" + this.LottoBoxThree.Text + "', '" + this.LottoBoxFour.Text + "', '" + this.LottoBoxFive.Text + "', '" + this.LottoBoxSix.Text + "', '" + this.LottoBoxSuper.Text + "')";
                             SqlCommand sqlCmd = new SqlCommand(query, sqlCon);      //Eingegebene Tipps vom Kunden werden in der DB gespeichert
                             sqlCmd.ExecuteNonQuery();
                             sqlCmd.CommandType = CommandType.Text;
@@ -172,36 +173,36 @@ namespace Lottoprojekt
                 }
         }
         
-        private int BerechneGewinnKlasse(object sender, RoutedEventArgs e)      //Muss aufgerufen werden, rückgegebene Zahl ist die Gewinnklasse
-        {
-            if(korrekteTipps == 2 && superZahl){
-                return 9;
-            }
-            else if(korrekteTipps == 3){
-                return 8;
-            }
-            else if(korrekteTipps == 3 && superZahl){
-                return 7;
-            }
-            else if(korrekteTipps == 4){
-                return 6;
-            }
-            else if(korrekteTipps == 4 && superZahl){
-                return 5;
-            }
-            else if(korrekteTipps == 5){
-                return 4;
-            }
-            else if(korrekteTipps == 5 && superZahl){
-                return 3;
-            }
-            else if(korrekteTipps == 6){
-                return 2;
-            }
-            else if(korrekteTipps == 6 && superZahl){
-                return 1;
-            }
-        }
+        //private int BerechneGewinnKlasse()      //Muss aufgerufen werden, rückgegebene Zahl ist die Gewinnklasse
+        //{
+        //    if(korrekteTipps == 2 && superZahl){
+        //        return 9;
+        //    }
+        //    else if(korrekteTipps == 3){
+        //        return 8;
+        //    }
+        //    else if(korrekteTipps == 3 && superZahl){
+        //        return 7;
+        //    }
+        //    else if(korrekteTipps == 4){
+        //        return 6;
+        //    }
+        //    else if(korrekteTipps == 4 && superZahl){
+        //        return 5;
+        //    }
+        //    else if(korrekteTipps == 5){
+        //        return 4;
+        //    }
+        //    else if(korrekteTipps == 5 && superZahl){
+        //        return 3;
+        //    }
+        //    else if(korrekteTipps == 6){
+        //        return 2;
+        //    }
+        //    else if(korrekteTipps == 6 && superZahl){
+        //        return 1;
+        //    }
+        //}
 
         private void ZeigeLetzteZiehungen(object sender, RoutedEventArgs e)
         {

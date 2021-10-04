@@ -27,7 +27,7 @@
     <DataGrid x:Name="dataGrid1" AutoGenerateColumns="True" HorizontalAlignment="Left" Height="209" Margin="136,131,0,0" VerticalAlignment="Top" Width="194"/>
     <Label x:Name="MitarbeiterText" Content="Sie sind als Mitarbeiter angemeldet." HorizontalAlignment="Center" Height="48" Margin="0,164,0,0" VerticalAlignment="Top" Width="252" FontWeight="Bold" Visibility="Hidden"/>
     <Button x:Name="history" Content="Letzten Ziehungen" HorizontalAlignment="Left" Height="40" Margin="648,139,0,0" VerticalAlignment="Top" Width="152" Click="ZeigeLetzteZiehungen"/>
-    <Button Content="Tipps abfragen" HorizontalAlignment="Left" Height="40" Margin="648,254,0,0" VerticalAlignment="Top" Width="152" Click="history_Click"/>
-    <Button Content="Gewinne abfragen" HorizontalAlignment="Left" Height="40" Margin="648,0,0,0" VerticalAlignment="Center" Width="152" Click="history_Click"/>
+    <Button Content="Tipps abfragen" HorizontalAlignment="Left" Height="40" Margin="648,254,0,0" VerticalAlignment="Top" Width="152"/>
+    <Button Content="Gewinne abfragen" HorizontalAlignment="Left" Height="40" Margin="648,0,0,0" VerticalAlignment="Center" Width="152"/>
   </Grid>
 </Window>
