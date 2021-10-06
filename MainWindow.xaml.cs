@@ -23,9 +23,12 @@ namespace Lottoprojekt
     {
         public MainWindow()
         {
-        int korrekteTipps = 0;
-        bool superZahl = false;
             InitializeComponent();
+
+
+            LoginWindow l = new LoginWindow();
+            UserEID.Text = l.UserID;              //Name des Users muss hier rein
+
             if (true) //Wenn User Mitarbeiter ist, dann
             {
                 ApplyNumbers.Content = "Ziehung starten";
@@ -37,10 +40,10 @@ namespace Lottoprojekt
                 LottoBoxFive.IsEnabled = false;
                 LottoBoxSix.IsEnabled = false;
                 LottoBoxSuper.IsEnabled = false;
-                UserEID.Text = "";              //Name des Users muss hier rein
             }
         }
-
+        int korrekteTipps = 0;
+        bool superZahl = false;
 
 
         private void StarteZiehung(object sender, RoutedEventArgs e) //Tipp des Kunden wird hochgeladen, nachdem die Werte überprüft wurden
@@ -119,90 +122,105 @@ namespace Lottoprojekt
                     sqlCon.Close();     //Verbindung zur DB wird beendet
                 }
             } // Ziehung starten, sonst LadeTipHoch
+            else
+            {
+                LadeTipHoch(null, null);
+            }
         }
-        
+
         private void Gewinnprüfung()
         {
             //BerechneGewinnKlasse();
         }
-        
-        private void LadeTipHoch(object sender, RoutedEventArgs e){     //Button muss erstellt werden
+
+        private void LadeTipHoch(object sender, RoutedEventArgs e)      //Button muss erstellt werden
+        {     
+            int UserId = Convert.ToInt32(UserEID.Text);
             try
+            {
+                int number1 = Int32.Parse(LottoBoxOne.Text);
+                int number2 = Int32.Parse(LottoBoxTwo.Text);
+                int number3 = Int32.Parse(LottoBoxThree.Text);
+                int number4 = Int32.Parse(LottoBoxFour.Text);
+                int number5 = Int32.Parse(LottoBoxFive.Text);
+                int number6 = Int32.Parse(LottoBoxSix.Text);
+                int numberS = Int32.Parse(LottoBoxSuper.Text);  //Kontrollieren, ob die Tipps vom Kunden im gültigen Bereich liegen, evtl auf doppelte Zahlen prüfen
+                if ((number1 <= 49 && number1 >= 1) && (number2 <= 49 && number2 >= 1) && (number3 <= 49 && number3 >= 1) && (number4 <= 49 && number4 >= 1) && (number5 <= 49 && number5 >= 1) && (number6 <= 49 && number6 >= 1) && (numberS <= 49 && numberS >= 1))
                 {
-                    int number1 = Int32.Parse(LottoBoxOne.Text);
-                    int number2 = Int32.Parse(LottoBoxTwo.Text);
-                    int number3 = Int32.Parse(LottoBoxThree.Text);
-                    int number4 = Int32.Parse(LottoBoxFour.Text);
-                    int number5 = Int32.Parse(LottoBoxFive.Text);
-                    int number6 = Int32.Parse(LottoBoxSix.Text);
-                    int numberS = Int32.Parse(LottoBoxSuper.Text);  //Kontrollieren, ob die Tipps vom Kunden im gültigen Bereich liegen, evtl auf doppelte Zahlen prüfen
-                    if ((number1 <= 49 && number1 >= 1) && (number2 <= 49 && number2 >= 1) && (number3 <= 49 && number3 >= 1) && (number4 <= 49 && number4 >= 1) && (number5 <= 49 && number5 >= 1) && (number6 <= 49 && number6 >= 1) && (numberS <= 49 && numberS >= 1))
+                    SqlConnection sqlCon = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=D:\Workspace\Lottoprojekt\Database.mdf;Integrated Security=True");
+                    MessageBox.Show("Alle Werte im Bereich.");
+                    try
                     {
-                        SqlConnection sqlCon = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=D:\Workspace\Lottoprojekt\Database.mdf;Integrated Security=True
-");
-                        MessageBox.Show("Alle Werte im Bereich.");
-                        try
+                        if (sqlCon.State == ConnectionState.Closed)
                         {
-                            if (sqlCon.State == ConnectionState.Closed)
-                            {
-                                sqlCon.Open();
-                            }                                                                                                                               //Hier muss die ID gegen Daten der DB ausgetauscht werden, damit immer die Ziehungen derjenigen Person zugewiesen werden kann, die angemeldet ist
-                            String query = "INSERT INTO PulledNumbers VALUES ('" + "1" + "' ,'" + this.LottoBoxOne.Text + "', '" + this.LottoBoxTwo.Text + "', '" + this.LottoBoxThree.Text + "', '" + this.LottoBoxFour.Text + "', '" + this.LottoBoxFive.Text + "', '" + this.LottoBoxSix.Text + "', '" + this.LottoBoxSuper.Text + "')";
-                            SqlCommand sqlCmd = new SqlCommand(query, sqlCon);      //Eingegebene Tipps vom Kunden werden in der DB gespeichert
-                            sqlCmd.ExecuteNonQuery();
-                            sqlCmd.CommandType = CommandType.Text;
-                            int count = Convert.ToInt32(sqlCmd.ExecuteScalar());
-                        }
-                        catch (Exception ex)
-                        {
-                            MessageBox.Show(ex.Message);
-                        }
-                        finally
-                        {
-                            sqlCon.Close();
-                        }
+                            sqlCon.Open();
+                        }                                                                                       //Hier muss die ID gegen Daten der DB ausgetauscht werden, damit immer die Ziehungen derjenigen Person zugewiesen werden kann, die angemeldet ist
+                        String query = "INSERT INTO PulledNumbers VALUES ('" + UserId + "' ,'" + this.LottoBoxOne.Text + "', '" + this.LottoBoxTwo.Text + "', '" + this.LottoBoxThree.Text + "', '" + this.LottoBoxFour.Text + "', '" + this.LottoBoxFive.Text + "', '" + this.LottoBoxSix.Text + "', '" + this.LottoBoxSuper.Text + "')";
+                        SqlCommand sqlCmd = new SqlCommand(query, sqlCon);      //Eingegebene Tipps vom Kunden werden in der DB gespeichert
+                        sqlCmd.ExecuteNonQuery();
+                        sqlCmd.CommandType = CommandType.Text;
+                        int count = Convert.ToInt32(sqlCmd.ExecuteScalar());
                     }
-                    else
+                    catch (Exception ex)
                     {
-                        MessageBox.Show("Sie haben falsche Werte in die Felder eingegeben");
+                        MessageBox.Show(ex.Message);
+                    }
+                    finally
+                    {
+                        sqlCon.Close();
                     }
                 }
-                catch (Exception)
+                else
                 {
-                    MessageBox.Show("Nicht alle Werte sind im korrekten Bereich.");
+                    MessageBox.Show("Sie haben falsche Werte in die Felder eingegeben");
                 }
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Nicht alle Werte sind im korrekten Bereich.");
+            }
         }
-        
-        //private int BerechneGewinnKlasse()      //Muss aufgerufen werden, rückgegebene Zahl ist die Gewinnklasse
-        //{
-        //    if(korrekteTipps == 2 && superZahl){
-        //        return 9;
-        //    }
-        //    else if(korrekteTipps == 3){
-        //        return 8;
-        //    }
-        //    else if(korrekteTipps == 3 && superZahl){
-        //        return 7;
-        //    }
-        //    else if(korrekteTipps == 4){
-        //        return 6;
-        //    }
-        //    else if(korrekteTipps == 4 && superZahl){
-        //        return 5;
-        //    }
-        //    else if(korrekteTipps == 5){
-        //        return 4;
-        //    }
-        //    else if(korrekteTipps == 5 && superZahl){
-        //        return 3;
-        //    }
-        //    else if(korrekteTipps == 6){
-        //        return 2;
-        //    }
-        //    else if(korrekteTipps == 6 && superZahl){
-        //        return 1;
-        //    }
-        //}
+
+        private int BerechneGewinnKlasse()      //Muss aufgerufen werden, rückgegebene Zahl ist die Gewinnklasse
+        {
+            if (korrekteTipps == 2 && superZahl)
+            {
+                return 9;
+            }
+            else if (korrekteTipps == 3)
+            {
+                return 8;
+            }
+            else if (korrekteTipps == 3 && superZahl)
+            {
+                return 7;
+            }
+            else if (korrekteTipps == 4)
+            {
+                return 6;
+            }
+            else if (korrekteTipps == 4 && superZahl)
+            {
+                return 5;
+            }
+            else if (korrekteTipps == 5)
+            {
+                return 4;
+            }
+            else if (korrekteTipps == 5 && superZahl)
+            {
+                return 3;
+            }
+            else if (korrekteTipps == 6)
+            {
+                return 2;
+            }
+            else if (korrekteTipps == 6 && superZahl)
+            {
+                return 1;
+            }
+            return 0;
+        }
 
         private void ZeigeLetzteZiehungen(object sender, RoutedEventArgs e)
         {
