@@ -24,13 +24,6 @@ namespace Lottoprojekt
         }
         private string UserId;
 
-
-        public string UserID
-        {
-            get { return UserId; }  //Wert ist bereits 0, bevor er übergeben wird
-            set { UserId = value; }
-        }
-
         private void LoginUserBtn(object sender, RoutedEventArgs e)
         {
             SqlConnection sqlCon = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=D:\Workspace\Lottoprojekt\Database.mdf;Integrated Security=True");
@@ -58,7 +51,7 @@ namespace Lottoprojekt
                 if (UserId != null)
                 {
                     MessageBox.Show("Herzlich Willkommen, " + txtUsername.Text + "!");
-                    MainWindow dashboard = new MainWindow();
+                    MainWindow dashboard = new MainWindow(UserId);
                     dashboard.Show();
                     this.Close();
                 }

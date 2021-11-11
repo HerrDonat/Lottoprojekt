@@ -1,4 +1,3 @@
-
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -21,17 +20,17 @@ namespace Lottoprojekt
 {
     public partial class MainWindow : Window
     {
-        public MainWindow()
+        public MainWindow(string UserId)
         {
             InitializeComponent();
 
 
             LoginWindow l = new LoginWindow();
-            UserEID.Text = l.UserID;              //Name des Users muss hier rein
+            UserEID.Text = UserId;              //Name des Users muss hier rein
 
-            if (true) //Wenn User Mitarbeiter ist, dann
+            if (UserEID.Text == "1") //Wenn User Mitarbeiter ist, dann
             {
-                ApplyNumbers.Content = "Ziehung starten";
+                LadeTip.Visibility = Visibility.Hidden;
                 MitarbeiterText.Visibility = Visibility.Visible;
                 LottoBoxOne.IsEnabled = false;
                 LottoBoxTwo.IsEnabled = false;
@@ -41,13 +40,17 @@ namespace Lottoprojekt
                 LottoBoxSix.IsEnabled = false;
                 LottoBoxSuper.IsEnabled = false;
             }
+            else
+            {
+                ApplyNumbers.Visibility = Visibility.Hidden;
+            }
         }
         int korrekteTipps = 0;
         bool superZahl = false;
 
 
-        private void StarteZiehung(object sender, RoutedEventArgs e) //Tipp des Kunden wird hochgeladen, nachdem die Werte überprüft wurden
-        {       //TODO Funktionen aufteilen in StarteZiehung und LadeTipHoch, da momentan noch beides in derselben Funktion passiert
+        private void StarteZiehung(object sender, RoutedEventArgs e)
+        {
             var rand = new Random();
             int random1 = rand.Next(1, 50);
             int random2 = rand.Next(1, 50);
@@ -56,75 +59,68 @@ namespace Lottoprojekt
             int random5 = rand.Next(1, 50);
             int random6 = rand.Next(1, 50);
             int random7 = rand.Next(0, 10);
-            if (ApplyNumbers.Content.ToString() == "Ziehung starten")
+            MessageBoxResult result = MessageBox.Show("Möchten Sie eine neue Ziehung starten?", "Ziehung starten", MessageBoxButton.YesNo);
+            switch (result)
             {
-                MessageBoxResult result = MessageBox.Show("Möchten Sie eine neue Ziehung starten?", "Ziehung starten", MessageBoxButton.YesNo);
-                switch (result)
-                {
-                    case MessageBoxResult.Yes:
-                        //Ziehung starten
-                        random1 = rand.Next(1, 50);
-                        if (random2 == random1)     //Hier wird verhindert dass bei einer Ziehung eine Zahl doppelt vorkommt
-                        {
-                            random2 = rand.Next(1, 50);
-                        }
-                        if (random3 == random2 || random3 == random1)
-                        {
-                            random3 = rand.Next(1, 50);
-                        }
-                        if (random4 == random3 || random4 == random2 || random4 == random1)
-                        {
-                            random4 = rand.Next(1, 50);
-                        }
-                        if (random5 == random4 || random5 == random3 || random5 == random2 || random5 == random1)
-                        {
-                            random5 = rand.Next(1, 50);
-
-                        }
-                        if (random6 == random5 || random6 == random4 || random6 == random3 || random6 == random2 || random6 == random1)
-                        {
-                            random6 = rand.Next(1, 50);
-                        }
-                        LottoBoxOne.Text = random1.ToString();
-                        LottoBoxTwo.Text = random2.ToString();
-                        LottoBoxThree.Text = random3.ToString();
-                        LottoBoxFour.Text = random4.ToString();
-                        LottoBoxFive.Text = random5.ToString();
-                        LottoBoxSix.Text = random6.ToString();
-                        LottoBoxSuper.Text = random7.ToString();
-                        break;
-                    case MessageBoxResult.No:
-                        MessageBox.Show("Die Ziehung wurde abgebrochen.");
-                        break;
-                    default:
-                        break;
-                }
-                //SqlConnection sqlCon = new SqlConnection(@"Data Source=localhost\SQLSERVER; Initial Catalog=LoginDB; Integrated Security=True;"); //Verbindung zu DB wird hergestellt
-                SqlConnection sqlCon = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=D:\Workspace\Lottoprojekt\Database.mdf;Integrated Security=True");//Pfad, wo die DB gespeichert ist
-                try
-                {
-                    if (sqlCon.State == ConnectionState.Closed)
+                case MessageBoxResult.Yes:
+                    //Ziehung starten
+                    random1 = rand.Next(1, 50);
+                    if (random2 == random1)     //Hier wird verhindert dass bei einer Ziehung eine Zahl doppelt vorkommt
                     {
-                        sqlCon.Open();
-                    }                                                     //Bei dieser Zahl muss pro Ziehung immer + 1 gerechnet werden(Id der Ziehung)                                                                         //Hier muss die ID gegen Daten der DB ausgetauscht werden, damit immer die Ziehungen derjenigen Person zugewiesen werden kann, die angemeldet ist
-                    String query = "INSERT INTO PulledNumbers VALUES ('" + 2 + "' ,'" + this.LottoBoxOne.Text + "', '" + this.LottoBoxTwo.Text + "', '" + this.LottoBoxThree.Text + "', '" + this.LottoBoxFour.Text + "', '" + this.LottoBoxFive.Text + "', '" + this.LottoBoxSix.Text + "', '" + this.LottoBoxSuper.Text + "')";
-                    SqlCommand sqlCmd = new SqlCommand(query, sqlCon);//Verbindung klappt, allerdings versucht er immer 2 mal die Daten in die DB zu schreiben, weswegen immer eine Fehlermeldung kommt
-                    sqlCmd.ExecuteNonQuery();
-                    sqlCmd.CommandType = CommandType.Text;
-                    int count = Convert.ToInt32(sqlCmd.ExecuteScalar());
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.Message);
-                }
-                finally
-                {
-                    sqlCon.Close();     //Verbindung zur DB wird beendet
-                }
-            } // Ziehung starten, sonst LadeTipHoch
-            else
+                        random2 = rand.Next(1, 50);
+                    }
+                    if (random3 == random2 || random3 == random1)
+                    {
+                        random3 = rand.Next(1, 50);
+                    }
+                    if (random4 == random3 || random4 == random2 || random4 == random1)
+                    {
+                        random4 = rand.Next(1, 50);
+                    }
+                    if (random5 == random4 || random5 == random3 || random5 == random2 || random5 == random1)
+                    {
+                        random5 = rand.Next(1, 50);
+
+                    }
+                    if (random6 == random5 || random6 == random4 || random6 == random3 || random6 == random2 || random6 == random1)
+                    {
+                        random6 = rand.Next(1, 50);
+                    }
+                    LottoBoxOne.Text = random1.ToString();
+                    LottoBoxTwo.Text = random2.ToString();
+                    LottoBoxThree.Text = random3.ToString();
+                    LottoBoxFour.Text = random4.ToString();
+                    LottoBoxFive.Text = random5.ToString();
+                    LottoBoxSix.Text = random6.ToString();
+                    LottoBoxSuper.Text = random7.ToString();
+                    break;
+                case MessageBoxResult.No:
+                    MessageBox.Show("Die Ziehung wurde abgebrochen.");
+                    break;
+                default:
+                    break;
+            }
+            //SqlConnection sqlCon = new SqlConnection(@"Data Source=localhost\SQLSERVER; Initial Catalog=LoginDB; Integrated Security=True;"); //Verbindung zu DB wird hergestellt
+            SqlConnection sqlCon = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=D:\Workspace\Lottoprojekt\Database.mdf;Integrated Security=True");//Pfad, wo die DB gespeichert ist
+            try
             {
-                LadeTipHoch(null, null);
+                if (sqlCon.State == ConnectionState.Closed)
+                {
+                    sqlCon.Open();
+                }                                                                                                                          //Hier muss die ID gegen Daten der DB ausgetauscht werden, damit immer die Ziehungen derjenigen Person zugewiesen werden kann, die angemeldet ist
+                String query = "INSERT INTO PulledNumbers VALUES ('" + DateTime.Now + "','" + this.LottoBoxOne.Text + "', '" + this.LottoBoxTwo.Text + "', '" + this.LottoBoxThree.Text + "', '" + this.LottoBoxFour.Text + "', '" + this.LottoBoxFive.Text + "', '" + this.LottoBoxSix.Text + "', '" + this.LottoBoxSuper.Text + "')";
+                SqlCommand sqlCmd = new SqlCommand(query, sqlCon);//Verbindung klappt, allerdings versucht er immer 2 mal die Daten in die DB zu schreiben, weswegen immer eine Fehlermeldung kommt
+                sqlCmd.ExecuteNonQuery();       //Derselbe Datensatz wird immer 2 mal in der DB gespeichert, bug?
+                sqlCmd.CommandType = CommandType.Text;
+                int count = Convert.ToInt32(sqlCmd.ExecuteScalar());
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            finally
+            {
+                sqlCon.Close();     //Verbindung zur DB wird beendet
             }
         }
 
@@ -133,9 +129,8 @@ namespace Lottoprojekt
             //BerechneGewinnKlasse();
         }
 
-        private void LadeTipHoch(object sender, RoutedEventArgs e)      //Button muss erstellt werden
-        {     
-            int UserId = Convert.ToInt32(UserEID.Text);
+        private void LadeTipHoch(object sender, RoutedEventArgs e)      //Tipp des Kunden wird hochgeladen und in der DB gespeichert
+        {
             try
             {
                 int number1 = Int32.Parse(LottoBoxOne.Text);
@@ -155,11 +150,12 @@ namespace Lottoprojekt
                         {
                             sqlCon.Open();
                         }                                                                                       //Hier muss die ID gegen Daten der DB ausgetauscht werden, damit immer die Ziehungen derjenigen Person zugewiesen werden kann, die angemeldet ist
-                        String query = "INSERT INTO PulledNumbers VALUES ('" + UserId + "' ,'" + this.LottoBoxOne.Text + "', '" + this.LottoBoxTwo.Text + "', '" + this.LottoBoxThree.Text + "', '" + this.LottoBoxFour.Text + "', '" + this.LottoBoxFive.Text + "', '" + this.LottoBoxSix.Text + "', '" + this.LottoBoxSuper.Text + "')";
+                        String query = "INSERT INTO Customer VALUES ('" + UserEID.Text + "', '" + DateTime.Now + "', '" + this.LottoBoxOne.Text + "', '" + this.LottoBoxTwo.Text + "', '" + this.LottoBoxThree.Text + "', '" + this.LottoBoxFour.Text + "', '" + this.LottoBoxFive.Text + "', '" + this.LottoBoxSix.Text + "', '" + this.LottoBoxSuper.Text + "')";
                         SqlCommand sqlCmd = new SqlCommand(query, sqlCon);      //Eingegebene Tipps vom Kunden werden in der DB gespeichert
                         sqlCmd.ExecuteNonQuery();
                         sqlCmd.CommandType = CommandType.Text;
                         int count = Convert.ToInt32(sqlCmd.ExecuteScalar());
+                        MessageBox.Show("Ihr Tipp wurde erfolgreich abgegeben und gilt für die Ziehung am " + DateTime.Now.ToString("MM/dd/yyyy"));
                     }
                     catch (Exception ex)
                     {
@@ -181,7 +177,7 @@ namespace Lottoprojekt
             }
         }
 
-        private int BerechneGewinnKlasse()      //Muss aufgerufen werden, rückgegebene Zahl ist die Gewinnklasse
+        private int BerechneGewinnKlasse()      //Muss aufgerufen werden, rückgegebene Zahl ist die Gewinnklasse(korrekteTipps muss richtig definiert und mit Zahlen in DB verglichen werden
         {
             if (korrekteTipps == 2 && superZahl)
             {
@@ -224,11 +220,11 @@ namespace Lottoprojekt
 
         private void ZeigeLetzteZiehungen(object sender, RoutedEventArgs e)
         {
-            SqlConnection sqlCon = new SqlConnection(@"Data Source=localhost\SQLSERVER; Initial Catalog=LoginDB; Integrated Security=True;");
+            SqlConnection sqlCon = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=D:\Workspace\Lottoprojekt\Database.mdf;Integrated Security=True");//Pfad, wo die DB gespeichert ist
             try
             {
                 sqlCon.Open();
-                string query = "select * from tblPickByDate ";      //ID des Kunden einfügen, der gerade angemeldet ist
+                string query = "select * from PulledNumbers";      //ID des Kunden einfügen, der gerade angemeldet ist
                 SqlCommand cmd = new SqlCommand(query, sqlCon);
                 cmd.ExecuteNonQuery();
                 SqlDataAdapter dataAd = new SqlDataAdapter(cmd);
