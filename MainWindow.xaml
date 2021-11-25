@@ -5,37 +5,30 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Lottoprojekt"
         mc:Ignorable="d"
-        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-        Title="MainWindow" Height="450" Width="800" ResizeMode="NoResize">
-
-    <Grid Background="LightGray">
-        <Border MinWidth="800" Background="White" VerticalAlignment="Top" Padding="20"></Border>
-        <Label Content="Lotto von Sina Ulmann und Nicolas Marks" HorizontalAlignment="Left" Height="28" Margin="10,6,0,0" VerticalAlignment="Top" Width="240"/>
-        <Image x:Name="LottoImage" HorizontalAlignment="Left" Height="119" VerticalAlignment="Top" Width="162" Source="index.png" Margin="638,40,0,0" RenderTransformOrigin="0.529,0.432"/>
-
-        <Label Content="Tippabgabe:" HorizontalAlignment="Left" Height="29" Margin="19,50,0,0" VerticalAlignment="Top" Width="81"/>
-        <Label Content="Zahl 1:" HorizontalAlignment="Left" Height="29" Margin="20,80,0,0" VerticalAlignment="Top" Width="57"/>
-        <Label Content="Zahl 2:" HorizontalAlignment="Left" Height="29" Margin="100,80,0,0" VerticalAlignment="Top" Width="57"/>
-        <Label Content="Zahl 3:" HorizontalAlignment="Left" Height="29" Margin="180,80,0,0" VerticalAlignment="Top" Width="57"/>
-        <Label Content="Zahl 4:" HorizontalAlignment="Left" Height="29" Margin="260,80,0,0" VerticalAlignment="Top" Width="57"/>
-        <Label Content="Zahl 5:" HorizontalAlignment="Left" Height="29" Margin="340,80,0,0" VerticalAlignment="Top" Width="57"/>
-        <Label Content="Zahl 6:" HorizontalAlignment="Left" Height="29" Margin="420,80,0,0" VerticalAlignment="Top" Width="56"/>
-        <Label Content="Superzahl:" HorizontalAlignment="Left" Height="29" Margin="520,80,0,0" VerticalAlignment="Top" Width="72"/>
-        <TextBox Name="LottoBoxOne" BorderThickness="1" HorizontalAlignment="Left" Height="39" Margin="20,110,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="57" Cursor="IBeam"/>
-        <TextBox Name="LottoBoxTwo" BorderThickness="1" HorizontalAlignment="Left" Height="39" Margin="100,110,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="57"/>
-        <TextBox Name="LottoBoxThree" BorderThickness="1" HorizontalAlignment="Left" Height="39" Margin="180,110,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="57"/>
-        <TextBox Name="LottoBoxFour" BorderThickness="1" HorizontalAlignment="Left" Height="39" Margin="260,110,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="57"/>
-        <TextBox Name="LottoBoxFive" BorderThickness="1" HorizontalAlignment="Left" Height="39" Margin="340,110,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="56"/>
-        <TextBox Name="LottoBoxSix" BorderThickness="1" HorizontalAlignment="Left" Height="39" Margin="420,110,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="57"/>
-        <TextBox Name="LottoBoxSuper" BorderThickness="1" HorizontalAlignment="Left" Height="39" Margin="520,110,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="57"/>
-        <Button x:Name="ApplyNumbers" Content="Tipps bestätigen" HorizontalAlignment="Left" Height="36" Margin="431,182,0,0" VerticalAlignment="Top" Width="146" Click="UploadTipp" Background="#b81a0f" Cursor="Hand"/>
-
-        <Button x:Name="history" Content="Letzten Ziehungen" HorizontalAlignment="Left" Height="36" Margin="638,182,0,0" VerticalAlignment="Top" Width="152" Click="history_Click" Background="#b81a0f"/>
-        <Button Content="Gewinne abfragen" HorizontalAlignment="Left" Height="35" Margin="638,232,0,0" VerticalAlignment="Top" Width="152" Click="history_Click" Background="#b81a0f"/>
-        <Button Content="Tipps abfragen" HorizontalAlignment="Left" Height="35" Margin="638,282,0,0" VerticalAlignment="Top" Width="152" Click="history_Click" Background="#b81a0f"/>
-        
+        Title="MainWindow" Height="450" Width="800" Background="Gray" ResizeMode="NoResize">
+    <Grid>
+        <TextBox Name="LottoBoxOne" HorizontalAlignment="Left" Height="39" Margin="21,43,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="57"/>
+        <TextBox Name="LottoBoxTwo" HorizontalAlignment="Left" Height="39" Margin="107,43,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="57"/>
+        <TextBox Name="LottoBoxThree" HorizontalAlignment="Left" Height="39" Margin="184,43,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="57"/>
+        <TextBox Name="LottoBoxFour" HorizontalAlignment="Left" Height="39" Margin="265,43,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="57"/>
+        <TextBox Name="LottoBoxFive" HorizontalAlignment="Left" Height="39" Margin="344,43,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="56"/>
+        <TextBox Name="LottoBoxSix" HorizontalAlignment="Left" Height="39" Margin="424,43,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="57"/>
+        <TextBox Name="LottoBoxSuper" HorizontalAlignment="Left" Height="39" Margin="532,43,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="57"/>
+        <Label Content="Zahl1" HorizontalAlignment="Left" Height="29" Margin="21,9,0,0" VerticalAlignment="Top" Width="57"/>
+        <Label Content="Zahl2" HorizontalAlignment="Left" Height="29" Margin="107,10,0,0" VerticalAlignment="Top" Width="57"/>
+        <Label Content="Zahl3" HorizontalAlignment="Left" Height="29" Margin="184,10,0,0" VerticalAlignment="Top" Width="57"/>
+        <Label Content="Zahl4" HorizontalAlignment="Left" Height="29" Margin="265,10,0,0" VerticalAlignment="Top" Width="57"/>
+        <Label Content="Zahl5" HorizontalAlignment="Left" Height="29" Margin="344,10,0,0" VerticalAlignment="Top" Width="57"/>
+        <Label Content="Zahl6" HorizontalAlignment="Left" Height="29" Margin="424,10,0,0" VerticalAlignment="Top" Width="56"/>
+        <Label Content="Superzahl" HorizontalAlignment="Left" Height="29" Margin="532,7,0,0" VerticalAlignment="Top" Width="72"/>
+        <Button x:Name="ApplyNumbers" Content="Starte Ziehung" HorizontalAlignment="Left" Height="36" Margin="489,113,0,0" VerticalAlignment="Top" Width="100" Click="StarteZiehung"/>
         <TextBox x:Name="UserEID" HorizontalAlignment="Left" Height="41" Margin="0,393,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="126" IsEnabled="False"/>
-        <Label x:Name="MitarbeiterText" Content="Sie sind als Mitarbeiter angemeldet." HorizontalAlignment="Center" Height="48" Margin="0,164,0,0" VerticalAlignment="Top" Width="252" FontWeight="Bold" Visibility="Hidden"/>
-        <DataGrid x:Name="dataGrid1" AutoGenerateColumns="True" HorizontalAlignment="Left" Height="209" Margin="192,182,0,0" VerticalAlignment="Top" Width="194"/>
+        <Image x:Name="LottoImage" HorizontalAlignment="Left" Height="110" VerticalAlignment="Top" Width="160" Source="index.png" Margin="640,0,0,0" RenderTransformOrigin="0.529,0.432"/>
+        <DataGrid x:Name="dataGrid1" AutoGenerateColumns="True" HorizontalAlignment="Left" Height="209" Margin="136,131,0,0" VerticalAlignment="Top" Width="194"/>
+        <Label x:Name="MitarbeiterText" Content="Sie sind als Mitarbeiter angemeldet." HorizontalAlignment="Left" Height="48" Margin="352,276,0,0" VerticalAlignment="Top" Width="252" FontWeight="Bold" Visibility="Hidden"/>
+        <Button x:Name="history" Content="Letzten Ziehungen" HorizontalAlignment="Left" Height="40" Margin="648,139,0,0" VerticalAlignment="Top" Width="152" Click="ZeigeLetzteZiehungen"/>
+        <Button Content="Tipps abfragen" HorizontalAlignment="Left" Height="40" Margin="648,254,0,0" VerticalAlignment="Top" Width="152"/>
+        <Button Content="Gewinne abfragen" HorizontalAlignment="Left" Height="40" Margin="648,0,0,0" VerticalAlignment="Center" Width="152"/>
+        <Button x:Name="LadeTip" Content="Lade Tip Hoch" HorizontalAlignment="Left" Height="36" Margin="489,170,0,0" VerticalAlignment="Top" Width="100" Click="LadeTipHoch"/>
     </Grid>
 </Window>

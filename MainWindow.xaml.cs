@@ -1,6 +1,4 @@
-
 using System;
-using Npgsql;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
@@ -22,12 +20,17 @@ namespace Lottoprojekt
 {
     public partial class MainWindow : Window
     {
-        public MainWindow()
+        public MainWindow(string UserId)
         {
             InitializeComponent();
-            if (true) //Wenn User Mitarbeiter ist, dann
+
+
+            LoginWindow l = new LoginWindow();
+            UserEID.Text = UserId;              //Name des Users muss hier rein
+
+            if (UserEID.Text == "1") //Wenn User Mitarbeiter ist, dann
             {
-                ApplyNumbers.Content = "Ziehung starten";
+                LadeTip.Visibility = Visibility.Hidden;
                 MitarbeiterText.Visibility = Visibility.Visible;
                 LottoBoxOne.IsEnabled = false;
                 LottoBoxTwo.IsEnabled = false;
@@ -36,14 +39,17 @@ namespace Lottoprojekt
                 LottoBoxFive.IsEnabled = false;
                 LottoBoxSix.IsEnabled = false;
                 LottoBoxSuper.IsEnabled = false;
-                UserEID.Text = "";              //Name des Users muss hier rein
+            }
+            else
+            {
+                ApplyNumbers.Visibility = Visibility.Hidden;
             }
         }
+        int korrekteTipps = 0;
+        bool superZahl = false;
 
 
-
-        private void UploadTipp(object sender, RoutedEventArgs e) //Tipp des Kunden wird hochgeladen, nachdem die Werte überprüft wurden
-
+        private void StarteZiehung(object sender, RoutedEventArgs e)
         {
             var rand = new Random();
             int random1 = rand.Next(1, 50);
@@ -53,131 +59,172 @@ namespace Lottoprojekt
             int random5 = rand.Next(1, 50);
             int random6 = rand.Next(1, 50);
             int random7 = rand.Next(0, 10);
-            if (ApplyNumbers.Content.ToString() == "Ziehung starten")
+            MessageBoxResult result = MessageBox.Show("Möchten Sie eine neue Ziehung starten?", "Ziehung starten", MessageBoxButton.YesNo);
+            switch (result)
             {
-                MessageBoxResult result = MessageBox.Show("Möchten Sie eine neue Ziehung starten?", "Ziehung starten", MessageBoxButton.YesNo);
-                switch (result)
-                {
-                    case MessageBoxResult.Yes:
-                        //Ziehung starten
-                        random1 = rand.Next(1, 50);
-                        if (random2 == random1)     //Hier wird verhindert dass bei einer Ziehung keine Zahl doppelt vorkommt
-                        {
-                            random2 = rand.Next(1, 50);
-                        }
-                        if (random3 == random2 || random3 == random1)    //Bug? Ist 0 bei den Ziehungen
-                        {
-                            random3 = rand.Next(1, 50);
-                        }
-                        if (random4 == random3 || random4 == random2 || random4 == random1)
-                        {
-                            random4 = rand.Next(1, 50);
-                        }
-                        if (random5 == random4 || random5 == random3 || random5 == random2 || random5 == random1)
-                        {
-                            random5 = rand.Next(1, 50);
-
-                        }
-                        if (random6 == random5 || random6 == random4 || random6 == random3 || random6 == random2 || random6 == random1)
-                        {
-                            random6 = rand.Next(1, 50);
-                        }
-                        if (random7 == random6 || random7 == random5 || random7 == random4 || random7 == random3 || random7 == random2 || random7 == random1)
-                        {
-                            random7 = rand.Next(0, 10);
-                        }
-                        LottoBoxOne.Text = random1.ToString();
-                        LottoBoxTwo.Text = random2.ToString();
-                        LottoBoxThree.Text = random3.ToString();
-                        LottoBoxFour.Text = random4.ToString();
-                        LottoBoxFive.Text = random5.ToString();
-                        LottoBoxSix.Text = random6.ToString();
-                        LottoBoxSuper.Text = random7.ToString();
-                        break;
-                    case MessageBoxResult.No:
-                        MessageBox.Show("Die Ziehung wurde abgebrochen.");
-                        break;
-                    default:
-                        break;
-                }
-                SqlConnection sqlCon = new SqlConnection(@"Data Source=localhost\SQLSERVER; Initial Catalog=LoginDB; Integrated Security=True;"); //Verbindung zu DB wird hergestellt
-                try
-                {
-                    if (sqlCon.State == ConnectionState.Closed)
+                case MessageBoxResult.Yes:
+                    //Ziehung starten
+                    random1 = rand.Next(1, 50);
+                    if (random2 == random1)     //Hier wird verhindert dass bei einer Ziehung eine Zahl doppelt vorkommt
                     {
-                        sqlCon.Open();
-                    }                                                                                                                               //Hier muss die ID gegen Daten der DB ausgetauscht werden, damit immer die Ziehungen derjenigen Person zugewiesen werden kann, die angemeldet ist
-                    String query = "INSERT INTO tblZiehungen (Datum, Ziehung1, Ziehung2, Ziehung3, Ziehung4, Ziehung5, Ziehung6, ZiehungSuper) values('" + DateTime.Now + "' ,'" + this.LottoBoxOne.Text + "', '" + this.LottoBoxTwo.Text + "', '" + this.LottoBoxThree.Text + "', '" + this.LottoBoxFour.Text + "', '" + this.LottoBoxFive.Text + "', '" + this.LottoBoxSix.Text + "', '" + this.LottoBoxSuper.Text + "')";
-                    SqlCommand sqlCmd = new SqlCommand(query, sqlCon);  //Tabelle tblZiehungen mit den Spalten in der oberen Klammer
-                    sqlCmd.ExecuteNonQuery();
-                    sqlCmd.CommandType = CommandType.Text;
-                    int count = Convert.ToInt32(sqlCmd.ExecuteScalar());
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.Message);
-                }
-                finally
-                {
-                    sqlCon.Close();     //Verbindung zur DB wird beendet
-                }
+                        random2 = rand.Next(1, 50);
+                    }
+                    if (random3 == random2 || random3 == random1)
+                    {
+                        random3 = rand.Next(1, 50);
+                    }
+                    if (random4 == random3 || random4 == random2 || random4 == random1)
+                    {
+                        random4 = rand.Next(1, 50);
+                    }
+                    if (random5 == random4 || random5 == random3 || random5 == random2 || random5 == random1)
+                    {
+                        random5 = rand.Next(1, 50);
+
+                    }
+                    if (random6 == random5 || random6 == random4 || random6 == random3 || random6 == random2 || random6 == random1)
+                    {
+                        random6 = rand.Next(1, 50);
+                    }
+                    LottoBoxOne.Text = random1.ToString();
+                    LottoBoxTwo.Text = random2.ToString();
+                    LottoBoxThree.Text = random3.ToString();
+                    LottoBoxFour.Text = random4.ToString();
+                    LottoBoxFive.Text = random5.ToString();
+                    LottoBoxSix.Text = random6.ToString();
+                    LottoBoxSuper.Text = random7.ToString();
+                    break;
+                case MessageBoxResult.No:
+                    MessageBox.Show("Die Ziehung wurde abgebrochen.");
+                    break;
+                default:
+                    break;
             }
-            else
+            //SqlConnection sqlCon = new SqlConnection(@"Data Source=localhost\SQLSERVER; Initial Catalog=LoginDB; Integrated Security=True;"); //Verbindung zu DB wird hergestellt
+            SqlConnection sqlCon = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=D:\Workspace\Lottoprojekt\Database.mdf;Integrated Security=True");//Pfad, wo die DB gespeichert ist
+            try
             {
-                try
+                if (sqlCon.State == ConnectionState.Closed)
                 {
-                    int number1 = Int32.Parse(LottoBoxOne.Text);
-                    int number2 = Int32.Parse(LottoBoxTwo.Text);
-                    int number3 = Int32.Parse(LottoBoxThree.Text);
-                    int number4 = Int32.Parse(LottoBoxFour.Text);
-                    int number5 = Int32.Parse(LottoBoxFive.Text);
-                    int number6 = Int32.Parse(LottoBoxSix.Text);
-                    int numberS = Int32.Parse(LottoBoxSuper.Text);  //Kontrollieren, ob die Tipps vom Kunden im gültigen Bereich liegen
-                    if ((number1 <= 49 && number1 >= 1) && (number2 <= 49 && number2 >= 1) && (number3 <= 49 && number3 >= 1) && (number4 <= 49 && number4 >= 1) && (number5 <= 49 && number5 >= 1) && (number6 <= 49 && number6 >= 1) && (numberS <= 49 && numberS >= 1))
-                    {
-                        SqlConnection sqlCon = new SqlConnection(@"Data Source=localhost\SQLSERVER; Initial Catalog=LoginDB; Integrated Security=True;");
-                        MessageBox.Show("Alle Werte im Bereich.");
-                        try
-                        {
-                            if (sqlCon.State == ConnectionState.Closed)
-                            {
-                                sqlCon.Open();
-                            }                                                                                                                               //Hier muss die ID gegen Daten der DB ausgetauscht werden, damit immer die Ziehungen derjenigen Person zugewiesen werden kann, die angemeldet ist
-                            String query = "INSERT INTO tblPickByDate (UserID, Date, Pick1, Pick2, Pick3, Pick4, Pick5, Pick6, PickSuper) values('" + "1" + "' , '" + DateTime.Now + "' ,'" + this.LottoBoxOne.Text + "', '" + this.LottoBoxTwo.Text + "', '" + this.LottoBoxThree.Text + "', '" + this.LottoBoxFour.Text + "', '" + this.LottoBoxFive.Text + "', '" + this.LottoBoxSix.Text + "', '" + this.LottoBoxSuper.Text + "')";
-                            SqlCommand sqlCmd = new SqlCommand(query, sqlCon);      //Eingegebene Tipps vom Kunden werden in der DB gespeichert
-                            sqlCmd.ExecuteNonQuery();
-                            sqlCmd.CommandType = CommandType.Text;
-                            int count = Convert.ToInt32(sqlCmd.ExecuteScalar());
-                        }
-                        catch (Exception ex)
-                        {
-                            MessageBox.Show(ex.Message);
-                        }
-                        finally
-                        {
-                            sqlCon.Close();
-                        }
-                    }
-                    else
-                    {
-                        MessageBox.Show("Sie haben falsche Werte in die Felder eingegeben");
-                    }
-                }
-                catch (Exception)
-                {
-                    MessageBox.Show("Nicht alle Werte sind im korrekten Bereich.");
-                }
+                    sqlCon.Open();
+                }                                                                                                                          //Hier muss die ID gegen Daten der DB ausgetauscht werden, damit immer die Ziehungen derjenigen Person zugewiesen werden kann, die angemeldet ist
+                String query = "INSERT INTO PulledNumbers VALUES ('" + DateTime.Now + "','" + this.LottoBoxOne.Text + "', '" + this.LottoBoxTwo.Text + "', '" + this.LottoBoxThree.Text + "', '" + this.LottoBoxFour.Text + "', '" + this.LottoBoxFive.Text + "', '" + this.LottoBoxSix.Text + "', '" + this.LottoBoxSuper.Text + "')";
+                SqlCommand sqlCmd = new SqlCommand(query, sqlCon);//Verbindung klappt, allerdings versucht er immer 2 mal die Daten in die DB zu schreiben, weswegen immer eine Fehlermeldung kommt
+                sqlCmd.ExecuteNonQuery();       //Derselbe Datensatz wird immer 2 mal in der DB gespeichert, bug?
+                sqlCmd.CommandType = CommandType.Text;
+                int count = Convert.ToInt32(sqlCmd.ExecuteScalar());
             }
-
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            finally
+            {
+                sqlCon.Close();     //Verbindung zur DB wird beendet
+            }
         }
 
-        private void history_Click(object sender, RoutedEventArgs e)
+        private void Gewinnprüfung()
         {
-            SqlConnection sqlCon = new SqlConnection(@"Data Source=localhost\SQLSERVER; Initial Catalog=LoginDB; Integrated Security=True;");
+            //BerechneGewinnKlasse();
+        }
+
+        private void LadeTipHoch(object sender, RoutedEventArgs e)      //Tipp des Kunden wird hochgeladen und in der DB gespeichert
+        {
+            try
+            {
+                int number1 = Int32.Parse(LottoBoxOne.Text);
+                int number2 = Int32.Parse(LottoBoxTwo.Text);
+                int number3 = Int32.Parse(LottoBoxThree.Text);
+                int number4 = Int32.Parse(LottoBoxFour.Text);
+                int number5 = Int32.Parse(LottoBoxFive.Text);
+                int number6 = Int32.Parse(LottoBoxSix.Text);
+                int numberS = Int32.Parse(LottoBoxSuper.Text);  //Kontrollieren, ob die Tipps vom Kunden im gültigen Bereich liegen, evtl auf doppelte Zahlen prüfen
+                if ((number1 <= 49 && number1 >= 1) && (number2 <= 49 && number2 >= 1) && (number3 <= 49 && number3 >= 1) && (number4 <= 49 && number4 >= 1) && (number5 <= 49 && number5 >= 1) && (number6 <= 49 && number6 >= 1) && (numberS <= 49 && numberS >= 1))
+                {
+                    SqlConnection sqlCon = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=D:\Workspace\Lottoprojekt\Database.mdf;Integrated Security=True");
+                    MessageBox.Show("Alle Werte im Bereich.");
+                    try
+                    {
+                        if (sqlCon.State == ConnectionState.Closed)
+                        {
+                            sqlCon.Open();
+                        }                                                                                       //Hier muss die ID gegen Daten der DB ausgetauscht werden, damit immer die Ziehungen derjenigen Person zugewiesen werden kann, die angemeldet ist
+                        String query = "INSERT INTO Customer VALUES ('" + UserEID.Text + "', '" + DateTime.Now + "', '" + this.LottoBoxOne.Text + "', '" + this.LottoBoxTwo.Text + "', '" + this.LottoBoxThree.Text + "', '" + this.LottoBoxFour.Text + "', '" + this.LottoBoxFive.Text + "', '" + this.LottoBoxSix.Text + "', '" + this.LottoBoxSuper.Text + "')";
+                        SqlCommand sqlCmd = new SqlCommand(query, sqlCon);      //Eingegebene Tipps vom Kunden werden in der DB gespeichert
+                        sqlCmd.ExecuteNonQuery();
+                        sqlCmd.CommandType = CommandType.Text;
+                        int count = Convert.ToInt32(sqlCmd.ExecuteScalar());
+                        MessageBox.Show("Ihr Tipp wurde erfolgreich abgegeben und gilt für die Ziehung am " + DateTime.Now.ToString("MM/dd/yyyy"));
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message);
+                    }
+                    finally
+                    {
+                        sqlCon.Close();
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Sie haben falsche Werte in die Felder eingegeben");
+                }
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Nicht alle Werte sind im korrekten Bereich.");
+            }
+        }
+
+        private int BerechneGewinnKlasse()      //Muss aufgerufen werden, rückgegebene Zahl ist die Gewinnklasse(korrekteTipps muss richtig definiert und mit Zahlen in DB verglichen werden
+        {
+            if (korrekteTipps == 2 && superZahl)
+            {
+                return 9;
+            }
+            else if (korrekteTipps == 3)
+            {
+                return 8;
+            }
+            else if (korrekteTipps == 3 && superZahl)
+            {
+                return 7;
+            }
+            else if (korrekteTipps == 4)
+            {
+                return 6;
+            }
+            else if (korrekteTipps == 4 && superZahl)
+            {
+                return 5;
+            }
+            else if (korrekteTipps == 5)
+            {
+                return 4;
+            }
+            else if (korrekteTipps == 5 && superZahl)
+            {
+                return 3;
+            }
+            else if (korrekteTipps == 6)
+            {
+                return 2;
+            }
+            else if (korrekteTipps == 6 && superZahl)
+            {
+                return 1;
+            }
+            return 0;
+        }
+
+        private void ZeigeLetzteZiehungen(object sender, RoutedEventArgs e)
+        {
+            SqlConnection sqlCon = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=D:\Workspace\Lottoprojekt\Database.mdf;Integrated Security=True");//Pfad, wo die DB gespeichert ist
             try
             {
                 sqlCon.Open();
-                string query = "select * from tblPickByDate ";
+                string query = "select * from PulledNumbers";      //ID des Kunden einfügen, der gerade angemeldet ist
                 SqlCommand cmd = new SqlCommand(query, sqlCon);
                 cmd.ExecuteNonQuery();
                 SqlDataAdapter dataAd = new SqlDataAdapter(cmd);
