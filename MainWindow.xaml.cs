@@ -65,26 +65,29 @@ namespace Lottoprojekt
                 case MessageBoxResult.Yes:
                     //Ziehung starten
                     random1 = rand.Next(1, 50);
-                    if (random2 == random1)     //Hier wird verhindert dass bei einer Ziehung eine Zahl doppelt vorkommt
+                    while (random6 == random5 || random6 == random4 || random6 == random3 || random6 == random2 || random6 == random1 || random5 == random4 || random5 == random3 || random5 == random2 || random5 == random1 || random4 == random3 || random4 == random2 || random4 == random1 || random3 == random2 || random3 == random1 || random2 == random1)
                     {
-                        random2 = rand.Next(1, 50);
-                    }
-                    if (random3 == random2 || random3 == random1)
-                    {
-                        random3 = rand.Next(1, 50);
-                    }
-                    if (random4 == random3 || random4 == random2 || random4 == random1)
-                    {
-                        random4 = rand.Next(1, 50);
-                    }
-                    if (random5 == random4 || random5 == random3 || random5 == random2 || random5 == random1)
-                    {
-                        random5 = rand.Next(1, 50);
+                        if (random2 == random1)     //Hier wird verhindert dass bei einer Ziehung eine Zahl doppelt vorkommt
+                        {
+                            random2 = rand.Next(1, 50);
+                        }
+                        if (random3 == random2 || random3 == random1)
+                        {
+                            random3 = rand.Next(1, 50);
+                        }
+                        if (random4 == random3 || random4 == random2 || random4 == random1)
+                        {
+                            random4 = rand.Next(1, 50);
+                        }
+                        if (random5 == random4 || random5 == random3 || random5 == random2 || random5 == random1)
+                        {
+                            random5 = rand.Next(1, 50);
 
-                    }
-                    if (random6 == random5 || random6 == random4 || random6 == random3 || random6 == random2 || random6 == random1)
-                    {
-                        random6 = rand.Next(1, 50);
+                        }
+                        if (random6 == random5 || random6 == random4 || random6 == random3 || random6 == random2 || random6 == random1)
+                        {
+                            random6 = rand.Next(1, 50);
+                        }
                     }
                     LottoBoxOne.Text = random1.ToString();
                     LottoBoxTwo.Text = random2.ToString();
