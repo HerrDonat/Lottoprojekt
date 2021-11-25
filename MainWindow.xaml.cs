@@ -107,7 +107,7 @@ namespace Lottoprojekt
                 if (sqlCon.State == ConnectionState.Closed)
                 {
                     sqlCon.Open();
-                }                                                                                                                          //Hier muss die ID gegen Daten der DB ausgetauscht werden, damit immer die Ziehungen derjenigen Person zugewiesen werden kann, die angemeldet ist
+                }
                 String query = "INSERT INTO PulledNumbers VALUES ('" + DateTime.Now + "','" + this.LottoBoxOne.Text + "', '" + this.LottoBoxTwo.Text + "', '" + this.LottoBoxThree.Text + "', '" + this.LottoBoxFour.Text + "', '" + this.LottoBoxFive.Text + "', '" + this.LottoBoxSix.Text + "', '" + this.LottoBoxSuper.Text + "')";
                 SqlCommand sqlCmd = new SqlCommand(query, sqlCon);//Verbindung klappt, allerdings versucht er immer 2 mal die Daten in die DB zu schreiben, weswegen immer eine Fehlermeldung kommt
                 sqlCmd.ExecuteNonQuery();       //Derselbe Datensatz wird immer 2 mal in der DB gespeichert, bug?
@@ -126,7 +126,28 @@ namespace Lottoprojekt
 
         private void Gewinnprüfung()
         {
-            //BerechneGewinnKlasse();
+            SqlConnection sqlCon = new SqlConnection(); //MongoDB Source
+            try
+            {
+                if (sqlCon.State == ConnectionState.Closed)
+                {
+                    sqlCon.Open();
+                }
+                String query = "";      //MongoDB Abfrage für die Anzahl der Tipps des Kunden, die mit den Zahlen der Ziehung übereinstimmen
+                SqlCommand sqlCmd = new SqlCommand(query, sqlCon);
+                sqlCmd.ExecuteNonQuery();       //Derselbe Datensatz wird immer 2 mal in der DB gespeichert, bug?
+                sqlCmd.CommandType = CommandType.Text;
+                int count = Convert.ToInt32(sqlCmd.ExecuteScalar());
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            finally
+            {
+                sqlCon.Close();     //Verbindung zur DB wird beendet
+            }
+            BerechneGewinnKlasse(korrekteTipps, superZahl);
         }
 
         private void LadeTipHoch(object sender, RoutedEventArgs e)      //Tipp des Kunden wird hochgeladen und in der DB gespeichert
@@ -177,7 +198,7 @@ namespace Lottoprojekt
             }
         }
 
-        private int BerechneGewinnKlasse()      //Muss aufgerufen werden, rückgegebene Zahl ist die Gewinnklasse(korrekteTipps muss richtig definiert und mit Zahlen in DB verglichen werden
+        private int BerechneGewinnKlasse(int korrekteTipps, bool superZahl)      //Muss aufgerufen werden, rückgegebene Zahl ist die Gewinnklasse(korrekteTipps muss richtig definiert und mit Zahlen in DB verglichen werden
         {
             if (korrekteTipps == 2 && superZahl)
             {
