@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Lottoprojekt"
         mc:Ignorable="d"
-        Title="Login" Height="319" Width="300" FontSize="14" Background="Gray">
+        Title="Login" Height="319" Width="300" FontSize="14" Background="LightGray">
     <Border Background="#2e3137" CornerRadius="20" Margin="20">
         <StackPanel Margin="20">
             <Label Content="Login" Foreground="White" FontSize="25" HorizontalAlignment="Center"/>
@@ -14,7 +14,7 @@
             <TextBox Name="txtUsername" Background="#545d6a" Foreground="White" FontSize="18"/>
             <Label Content="Passwort:" Foreground="White"/>
             <PasswordBox Name="txtPassword" Background="#545d6a" Foreground="White" FontSize="18"/>
-            <Button Name="btnSubmit" Click="btnSubmit_Click" Content="Anmelden" Margin="60 10" Background="#545d6a" Foreground="White" FontSize="18"/>
+            <Button x:Name="btnSubmit" Click="btnSubmit_Click" Content="Anmelden" Background="#b81a0f" Margin="0,10,0,0" Foreground="White" FontSize="18" Width="115" Cursor="Hand"/>
         </StackPanel>
     </Border>
 </Window>

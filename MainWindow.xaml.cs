@@ -1,5 +1,6 @@
 
 using System;
+using Npgsql;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
@@ -42,7 +43,7 @@ namespace Lottoprojekt
 
 
         private void UploadTipp(object sender, RoutedEventArgs e) //Tipp des Kunden wird hochgeladen, nachdem die Werte überprüft wurden
- master
+
         {
             var rand = new Random();
             int random1 = rand.Next(1, 50);
