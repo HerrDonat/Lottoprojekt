@@ -161,9 +161,8 @@ namespace Lottoprojekt
                 int number5 = Int32.Parse(LottoBoxFive.Text);
                 int number6 = Int32.Parse(LottoBoxSix.Text);
                 int numberS = Int32.Parse(LottoBoxSuper.Text);  //Kontrollieren, ob die Tipps vom Kunden im gültigen Bereich liegen, evtl auf doppelte Zahlen prüfen
-                if ((number1 <= 49 && number1 >= 1) && (number2 <= 49 && number2 >= 1) && (number3 <= 49 && number3 >= 1) && (number4 <= 49 && number4 >= 1) && (number5 <= 49 && number5 >= 1) && (number6 <= 49 && number6 >= 1) && (numberS <= 49 && numberS >= 1))
+                if (((number1 <= 49 && number1 >= 1) && (number2 <= 49 && number2 >= 1) && (number3 <= 49 && number3 >= 1) && (number4 <= 49 && number4 >= 1) && (number5 <= 49 && number5 >= 1) && (number6 <= 49 && number6 >= 1) && (numberS <= 49 && numberS >= 1)) && number1 != number2 && number1 != number3 && number1 != number4 && number1 != number5 && number1 != number6 && number2 != number3 && number2 != number4 && number2 != number5 && number2 != number6 && number3 != number4 && number3 != number5 && number3 != number6 && number4 != number5 && number4 != number6 && number5 != number6)
                 {
-                    MessageBox.Show("Alle Werte im Bereich.");
                     try
                     {
                         if (sqlCon.State == ConnectionState.Closed)
