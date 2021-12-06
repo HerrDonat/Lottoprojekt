@@ -41,7 +41,7 @@ namespace Lottoprojekt
             }
             else
             {
-                //ApplyNumbers.Visibility = Visibility.Hidden;
+                ApplyNumbers.Visibility = Visibility.Hidden;
             }
         }
         int korrekteTipps = 0;
