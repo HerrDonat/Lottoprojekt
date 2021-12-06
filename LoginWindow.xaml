@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Lottoprojekt"
         mc:Ignorable="d"
-        Title="Login" Height="319" Width="300" FontSize="14" Background="LightGray">
+        Title="Login" Height="330" Width="300" FontSize="14" Background="LightGray">
     <Border Background="#2e3137" CornerRadius="20" Margin="20">
         <StackPanel Margin="20">
             <Label Content="Login" Foreground="White" FontSize="25" HorizontalAlignment="Center"/>
