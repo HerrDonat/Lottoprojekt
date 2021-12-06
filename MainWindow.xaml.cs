@@ -46,7 +46,7 @@ namespace Lottoprojekt
         }
         int korrekteTipps = 0;
         bool superZahl = false;
-        SqlConnection sqlCon = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\Otto\Source\Repos\Lottoprojekt2\Database1.mdf;Integrated Security=True");
+        SqlConnection sqlCon = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=D:\Workspace\Lottoprojekt\Database.mdf;Integrated Security=True");
 
         private void StarteZiehung(object sender, RoutedEventArgs e)        //Ziehung von zufälligen Zahlen wird gestartet
         {
@@ -243,7 +243,28 @@ namespace Lottoprojekt
             try
             {
                 sqlCon.Open();
-                string query = "select * from PulledNumbers";      //ID des Kunden einfügen, der gerade angemeldet ist
+                string query = "select Datum, number1, number2, number3, number4, number5, number6, numberSuper from PulledNumbers";      //ID des Kunden einfügen, der gerade angemeldet ist
+                SqlCommand cmd = new SqlCommand(query, sqlCon);
+                cmd.ExecuteNonQuery();
+                SqlDataAdapter dataAd = new SqlDataAdapter(cmd);
+                DataTable dt = new DataTable("tblPickByDate");
+                dataAd.Fill(dt);
+                dataGrid1.ItemsSource = dt.DefaultView;
+                dataAd.Update(dt);
+                sqlCon.Close();
+            }
+            catch (Exception)
+            {
+
+            }
+        }
+
+        private void ZeigeLetzteTipps(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                sqlCon.Open();
+                string query = "select Datum, number1, number2, number3, number4, number5, number6, numberSuper from Customer WHERE UserId = " + UserEID.Text;      //ID des Kunden einfügen, der gerade angemeldet ist
                 SqlCommand cmd = new SqlCommand(query, sqlCon);
                 cmd.ExecuteNonQuery();
                 SqlDataAdapter dataAd = new SqlDataAdapter(cmd);
