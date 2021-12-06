@@ -26,7 +26,7 @@ namespace Lottoprojekt
 
         private void LoginUserBtn(object sender, RoutedEventArgs e)
         {
-            SqlConnection sqlCon = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=D:\Workspace\Lottoprojekt\Database.mdf;Integrated Security=True");
+            SqlConnection sqlCon = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\Otto\Source\Repos\Lottoprojekt2\Database1.mdf;Integrated Security=True");
             try
             {
                 if (sqlCon.State == System.Data.ConnectionState.Closed)
