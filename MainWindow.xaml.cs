@@ -24,7 +24,6 @@ namespace Lottoprojekt
         {
             InitializeComponent();
 
-
             LoginWindow l = new LoginWindow();
             UserEID.Text = UserId;              //Name des Users muss hier rein
 
@@ -42,14 +41,14 @@ namespace Lottoprojekt
             }
             else
             {
-                ApplyNumbers.Visibility = Visibility.Hidden;
+                //ApplyNumbers.Visibility = Visibility.Hidden;
             }
         }
         int korrekteTipps = 0;
         bool superZahl = false;
+        SqlConnection sqlCon = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=D:\Workspace\Lottoprojekt\Database.mdf;Integrated Security=True");
 
-
-        private void StarteZiehung(object sender, RoutedEventArgs e)
+        private void StarteZiehung(object sender, RoutedEventArgs e)        //Ziehung von zufälligen Zahlen wird gestartet
         {
             var rand = new Random();
             int random1 = rand.Next(1, 50);
@@ -104,7 +103,6 @@ namespace Lottoprojekt
                     break;
             }
             //SqlConnection sqlCon = new SqlConnection(@"Data Source=localhost\SQLSERVER; Initial Catalog=LoginDB; Integrated Security=True;"); //Verbindung zu DB wird hergestellt
-            SqlConnection sqlCon = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=D:\Workspace\Lottoprojekt\Database.mdf;Integrated Security=True");//Pfad, wo die DB gespeichert ist
             try
             {
                 if (sqlCon.State == ConnectionState.Closed)
@@ -129,7 +127,6 @@ namespace Lottoprojekt
 
         private void Gewinnprüfung()
         {
-            SqlConnection sqlCon = new SqlConnection(); //MongoDB Source
             try
             {
                 if (sqlCon.State == ConnectionState.Closed)
@@ -166,7 +163,6 @@ namespace Lottoprojekt
                 int numberS = Int32.Parse(LottoBoxSuper.Text);  //Kontrollieren, ob die Tipps vom Kunden im gültigen Bereich liegen, evtl auf doppelte Zahlen prüfen
                 if ((number1 <= 49 && number1 >= 1) && (number2 <= 49 && number2 >= 1) && (number3 <= 49 && number3 >= 1) && (number4 <= 49 && number4 >= 1) && (number5 <= 49 && number5 >= 1) && (number6 <= 49 && number6 >= 1) && (numberS <= 49 && numberS >= 1))
                 {
-                    SqlConnection sqlCon = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=D:\Workspace\Lottoprojekt\Database.mdf;Integrated Security=True");
                     MessageBox.Show("Alle Werte im Bereich.");
                     try
                     {
@@ -244,7 +240,6 @@ namespace Lottoprojekt
 
         private void ZeigeLetzteZiehungen(object sender, RoutedEventArgs e)
         {
-            SqlConnection sqlCon = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=D:\Workspace\Lottoprojekt\Database.mdf;Integrated Security=True");//Pfad, wo die DB gespeichert ist
             try
             {
                 sqlCon.Open();

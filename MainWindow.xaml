@@ -28,12 +28,11 @@
         <TextBox Name="LottoBoxFive" BorderThickness="1" HorizontalAlignment="Left" Height="39" Margin="340,110,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="56"/>
         <TextBox Name="LottoBoxSix" BorderThickness="1" HorizontalAlignment="Left" Height="39" Margin="420,110,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="57"/>
         <TextBox Name="LottoBoxSuper" BorderThickness="1" HorizontalAlignment="Left" Height="39" Margin="520,110,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="57"/>
-        <Button x:Name="ApplyNumbers" Content="Tipps bestätigen" HorizontalAlignment="Left" Height="36" Margin="431,182,0,0" VerticalAlignment="Top" Width="146" Click="UploadTipp" Background="#b81a0f" Cursor="Hand" BorderBrush="#FFB81A0F"/>
         <Button x:Name="LadeTip" Content="Tip Hochladen" HorizontalAlignment="Left" Height="36" Margin="431,182,0,0" VerticalAlignment="Top" Width="146" Click="LadeTipHoch" Background="#b81a0f" Cursor="Hand" BorderBrush="#FFB81A0F"/>
 
-        <Button x:Name="history" Content="Letzten Ziehungen" HorizontalAlignment="Left" Height="36" Margin="638,182,0,0" VerticalAlignment="Top" Width="152" Click="history_Click" Background="#b81a0f" BorderBrush="#FFB81A0F"/>
-        <Button Content="Gewinne abfragen" HorizontalAlignment="Left" Height="35" Margin="638,232,0,0" VerticalAlignment="Top" Width="152" Click="history_Click" Background="#b81a0f" BorderBrush="#FFB81A0F"/>
-        <Button Content="Tipps abfragen" HorizontalAlignment="Left" Height="35" Margin="638,282,0,0" VerticalAlignment="Top" Width="152" Click="history_Click" Background="#b81a0f" Cursor="Hand" BorderBrush="#FFB81A0F"/>
+        <Button x:Name="history" Content="Letzten Ziehungen" HorizontalAlignment="Left" Height="36" Margin="638,182,0,0" VerticalAlignment="Top" Width="152" Background="#b81a0f" BorderBrush="#FFB81A0F"/>
+        <Button Content="Gewinne abfragen" HorizontalAlignment="Left" Height="35" Margin="638,232,0,0" VerticalAlignment="Top" Width="152" Background="#b81a0f" BorderBrush="#FFB81A0F"/>
+        <Button Content="Tipps abfragen" HorizontalAlignment="Left" Height="35" Margin="638,282,0,0" VerticalAlignment="Top" Width="152" Background="#b81a0f" Cursor="Hand" BorderBrush="#FFB81A0F"/>
 
         <TextBox x:Name="UserEID" HorizontalAlignment="Left" Height="41" Margin="0,393,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="126" IsEnabled="False"/>
         <Label x:Name="MitarbeiterText" Content="Sie sind als Mitarbeiter angemeldet." HorizontalAlignment="Center" Height="48" Margin="0,164,0,0" VerticalAlignment="Top" Width="252" FontWeight="Bold" Visibility="Hidden"/>
