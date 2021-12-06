@@ -113,7 +113,6 @@ namespace Lottoprojekt
                 SqlCommand sqlCmd = new SqlCommand(query, sqlCon);//Verbindung klappt, allerdings versucht er immer 2 mal die Daten in die DB zu schreiben, weswegen immer eine Fehlermeldung kommt
                 sqlCmd.ExecuteNonQuery();       //Derselbe Datensatz wird immer 2 mal in der DB gespeichert, bug?
                 sqlCmd.CommandType = CommandType.Text;
-                int count = Convert.ToInt32(sqlCmd.ExecuteScalar());
             }
             catch (Exception ex)
             {
@@ -137,7 +136,6 @@ namespace Lottoprojekt
                 SqlCommand sqlCmd = new SqlCommand(query, sqlCon);
                 sqlCmd.ExecuteNonQuery();       //Derselbe Datensatz wird immer 2 mal in der DB gespeichert, bug?
                 sqlCmd.CommandType = CommandType.Text;
-                int count = Convert.ToInt32(sqlCmd.ExecuteScalar());
             }
             catch (Exception ex)
             {
@@ -173,7 +171,6 @@ namespace Lottoprojekt
                         SqlCommand sqlCmd = new SqlCommand(query, sqlCon);      //Eingegebene Tipps vom Kunden werden in der DB gespeichert
                         sqlCmd.ExecuteNonQuery();
                         sqlCmd.CommandType = CommandType.Text;
-                        int count = Convert.ToInt32(sqlCmd.ExecuteScalar());
                         MessageBox.Show("Ihr Tipp wurde erfolgreich abgegeben und gilt für die Ziehung am " + DateTime.Now.ToString("MM/dd/yyyy"));
                     }
                     catch (Exception ex)
