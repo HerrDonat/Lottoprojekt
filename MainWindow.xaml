@@ -6,20 +6,20 @@
         xmlns:local="clr-namespace:Lottoprojekt"
         mc:Ignorable="d"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-        Title="MainWindow" MaxHeight="1080" MaxWidth="1920" Icon="/logo.png" WindowStartupLocation="CenterScreen">
+        Title="MainWindow" MaxHeight="800" MaxWidth="1400" Icon="/logo.png" WindowStartupLocation="CenterScreen">
 
     <Grid Background="LightGray">
-        <Border MinWidth="1920" Background="White" VerticalAlignment="Top" Padding="20"></Border>
+        <Border MinWidth="1400" Background="White" VerticalAlignment="Top" Padding="20"></Border>
         <Label Content="Lotto von Sina Ulmann und Nicolas Marks" HorizontalAlignment="Left" Height="28" Margin="10,6,0,0" VerticalAlignment="Top" Width="240"/>
         <Image x:Name="LottoImage" HorizontalAlignment="Left" Height="244" VerticalAlignment="Top" Width="386" Source="index.png" Margin="1534,40,0,0" RenderTransformOrigin="0.529,0.432"/>
 
         <Label Content="Tippabgabe:" HorizontalAlignment="Left" Height="50" Margin="19,50,0,0" VerticalAlignment="Top" Width="218" FontSize="30" FontWeight="Bold"/>
         <Label Content="Zahl 1:" HorizontalAlignment="Left" Height="50" Margin="88,138,0,0" VerticalAlignment="Top" Width="108" FontSize="30"/>
-        <Label Content="Zahl 2:" HorizontalAlignment="Left" Height="29" Margin="100,80,0,0" VerticalAlignment="Top" Width="57"/>
-        <Label Content="Zahl 3:" HorizontalAlignment="Left" Height="29" Margin="180,80,0,0" VerticalAlignment="Top" Width="57"/>
-        <Label Content="Zahl 4:" HorizontalAlignment="Left" Height="29" Margin="260,80,0,0" VerticalAlignment="Top" Width="57"/>
-        <Label Content="Zahl 5:" HorizontalAlignment="Left" Height="29" Margin="340,80,0,0" VerticalAlignment="Top" Width="57"/>
-        <Label Content="Zahl 6:" HorizontalAlignment="Left" Height="29" Margin="420,80,0,0" VerticalAlignment="Top" Width="56"/>
+        <Label Content="Zahl 2:" HorizontalAlignment="Left" Height="50" Margin="258,138,0,0" VerticalAlignment="Top" Width="108" FontSize="30"/>
+        <Label Content="Zahl 3:" HorizontalAlignment="Left" Height="50" Margin="88,138,0,0" VerticalAlignment="Top" Width="108" FontSize="30"/>
+        <Label Content="Zahl 4:" HorizontalAlignment="Left" Height="50" Margin="88,138,0,0" VerticalAlignment="Top" Width="108" FontSize="30"/>
+        <Label Content="Zahl 5:" HorizontalAlignment="Left" Height="50" Margin="88,138,0,0" VerticalAlignment="Top" Width="108" FontSize="30"/>
+        <Label Content="Zahl 6:" HorizontalAlignment="Left" Height="50" Margin="88,138,0,0" VerticalAlignment="Top" Width="108" FontSize="30"/>
         <Label Content="Superzahl:" HorizontalAlignment="Left" Height="29" Margin="520,80,0,0" VerticalAlignment="Top" Width="72"/>
         <TextBox Name="LottoBoxOne" BorderThickness="1" HorizontalAlignment="Left" Height="75" Margin="88,188,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="100" Cursor="IBeam" FontSize="30"/>
         <TextBox Name="LottoBoxTwo" BorderThickness="1" HorizontalAlignment="Left" Height="75" Margin="258,188,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="100" Cursor="IBeam" FontSize="30"/>
