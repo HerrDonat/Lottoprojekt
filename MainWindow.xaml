@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:Lottoprojekt"
         mc:Ignorable="d"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-        Title="MainWindow" Height="450" Width="810" ResizeMode="NoResize">
+        Title="MainWindow" Height="450" Width="810" ResizeMode="NoResize" Icon="/logo.png" WindowState="Maximized" WindowStartupLocation="CenterScreen">
 
     <Grid Background="LightGray">
         <Border MinWidth="800" Background="White" VerticalAlignment="Top" Padding="20"></Border>
@@ -33,11 +33,13 @@
         <Button x:Name="history" Click="ZeigeLetzteZiehungen" Content="Letzten Ziehungen" HorizontalAlignment="Left" Height="36" Margin="638,182,0,0" VerticalAlignment="Top" Width="152" Background="#b81a0f" BorderBrush="#FFB81A0F"/>
         <Button Content="Gewinne abfragen" HorizontalAlignment="Left" Height="35" Margin="638,232,0,0" VerticalAlignment="Top" Width="152" Background="#b81a0f" BorderBrush="#FFB81A0F"/>
         <Button Content="Tipps abfragen" Click="ZeigeLetzteTipps" HorizontalAlignment="Left" Height="35" Margin="638,282,0,0" VerticalAlignment="Top" Width="152" Background="#b81a0f" Cursor="Hand" BorderBrush="#FFB81A0F"/>
-
+        <Button Content="Statistik" Click="Statistik" HorizontalAlignment="Left" Height="35" Margin="638,332,0,0" VerticalAlignment="Top" Width="152" Background="#b81a0f" Cursor="Hand" BorderBrush="#FFB81A0F"/>
+        
         <TextBox x:Name="UserEID" HorizontalAlignment="Left" Height="41" Margin="0,393,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="126" IsEnabled="False"/>
         <Label x:Name="MitarbeiterText" Content="Sie sind als Mitarbeiter angemeldet." HorizontalAlignment="Center" Height="48" Margin="0,164,0,0" VerticalAlignment="Top" Width="252" FontWeight="Bold" Visibility="Hidden"/>
-        <DataGrid x:Name="dataGrid1" AutoGenerateColumns="True" HorizontalAlignment="Left" Height="209" Margin="192,182,0,0" VerticalAlignment="Top" Width="194"/>
+        <DataGrid x:Name="dataGrid1" AutoGenerateColumns="True" HorizontalAlignment="Left" Height="209" Margin="20,182,0,0" VerticalAlignment="Top" Width="377"/>
         <Button x:Name="ApplyNumbers" Content="Ziehung Starten" HorizontalAlignment="Left" Height="36" Margin="431,182,0,0" VerticalAlignment="Top" Width="146" Click="StarteZiehung" Background="#b81a0f" Cursor="Hand" BorderBrush="#FFB81A0F"/>
+        
 
     </Grid>
 </Window>

@@ -46,8 +46,8 @@ namespace Lottoprojekt
         }
         int korrekteTipps = 0;
         bool superZahl = false;
-        SqlConnection sqlCon = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=D:\Workspace\Lottoprojekt\Database.mdf;Integrated Security=True");
-
+       // SqlConnection sqlCon = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=D:\Workspace\Lottoprojekt\Database.mdf;Integrated Security=True");
+        SqlConnection sqlCon = new SqlConnection(@"Data Source = (LocalDB)\MSSQLLocalDB; AttachDbFilename = C:\Users\Otto\source\repos\Lottoprojekt2\Database1.mdf; Integrated Security = True; Connect Timeout = 30");
         private void StarteZiehung(object sender, RoutedEventArgs e)        //Ziehung von zufälligen Zahlen wird gestartet
         {
             var rand = new Random();
