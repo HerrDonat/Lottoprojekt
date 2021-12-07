@@ -5,15 +5,15 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Lottoprojekt"
         mc:Ignorable="d"
-        Title="Login" Height="330" Width="300" FontSize="14" Background="LightGray" Icon="/logo.png" WindowStartupLocation="CenterScreen">
+        Title="Login" Height="330" Width="300" FontSize="14" Background="LightGray" Icon="/logo.png" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
     <Border Background="#2e3137" CornerRadius="20" Margin="20">
         <StackPanel Margin="20">
             <Label Content="Login" Foreground="White" FontSize="25" HorizontalAlignment="Center"/>
             <Separator></Separator>
             <Label Content="Benutzername:" Foreground="White"/>
-            <TextBox Name="txtUsername" Background="White" Foreground="White" FontSize="18"/>
+            <TextBox Name="txtUsername" Background="White" Foreground="Black" FontSize="18" CaretBrush="White" Cursor="IBeam"/>
             <Label Content="Passwort:" Foreground="White"/>
-            <PasswordBox Name="txtPassword" Background="White" Foreground="White" FontSize="18"/>
+            <PasswordBox Name="txtPassword" Background="White" Foreground="Black" FontSize="18" CaretBrush="White"/>
             <Button Name="btnSubmit" Click="LoginUserBtn" Content="Anmelden" Margin="0,10,0,0" Background="#b81a0f" Foreground="White" FontSize="18" Width="139" BorderBrush="#FFB81A0F"/>
         </StackPanel>
     </Border>

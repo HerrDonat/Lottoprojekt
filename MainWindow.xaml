@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:Lottoprojekt"
         mc:Ignorable="d"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-        Title="MainWindow" Height="1080" Width="1920" Icon="/logo.png" WindowStartupLocation="CenterScreen">
+        Title="MainWindow" MaxHeight="1080" MaxWidth="1920" Icon="/logo.png" WindowStartupLocation="CenterScreen">
 
     <Grid Background="LightGray">
         <Border MinWidth="1920" Background="White" VerticalAlignment="Top" Padding="20"></Border>
@@ -28,7 +28,7 @@
         <TextBox Name="LottoBoxFive" BorderThickness="1" HorizontalAlignment="Left" Height="75" Margin="768,188,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="100" Cursor="IBeam"/>
         <TextBox Name="LottoBoxSix" BorderThickness="1" HorizontalAlignment="Left" Height="75" Margin="938,188,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="100" Cursor="IBeam"/>
         <TextBox Name="LottoBoxSuper" BorderThickness="1" HorizontalAlignment="Left" Height="75" Margin="1108,188,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="100" Cursor="IBeam"/>
-        <Button x:Name="LadeTip" Content="Tip Hochladen" HorizontalAlignment="Left" Height="75" Margin="1055,352,0,0" VerticalAlignment="Top" Width="350" Click="LadeTipHoch" Background="#b81a0f" Cursor="Hand" BorderBrush="#FFB81A0F"/>
+        <Button x:Name="LadeTip" Content="Tip Hochladen" HorizontalAlignment="Left" Height="75" Margin="1055,352,0,0" VerticalAlignment="Top" Width="350" Click="LadeTipHoch" Background="#b81a0f" Cursor="Hand" BorderBrush="#FFB81A0F" FontSize="30"/>
 
         <Button x:Name="history" Click="ZeigeLetzteZiehungen" Content="Letzten Ziehungen" HorizontalAlignment="Left" Height="75" Margin="1534,352,0,0" VerticalAlignment="Top" Width="350" Background="#b81a0f" BorderBrush="#FFB81A0F" FontSize="30"/>
         <Button Content="Gewinne abfragen" HorizontalAlignment="Left" Height="75" Margin="1534,452,0,0" VerticalAlignment="Top" Width="350" Background="#b81a0f" BorderBrush="#FFB81A0F" FontSize="30"/>
