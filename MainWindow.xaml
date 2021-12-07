@@ -6,10 +6,10 @@
         xmlns:local="clr-namespace:Lottoprojekt"
         mc:Ignorable="d"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-        Title="MainWindow" MaxHeight="800" MaxWidth="1400" Icon="/logo.png" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
+        Title="MainWindow" MaxHeight="600" MaxWidth="1000" Icon="/logo.png" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
 
     <Grid Background="LightGray">
-        <Border MinWidth="1400" Background="White" VerticalAlignment="Top" Padding="23"></Border>
+        <Border MinWidth="1000" Background="White" VerticalAlignment="Top" Padding="23"></Border>
         <Label Content="Lotto von Sina Ulmann und Nicolas Marks" HorizontalAlignment="Left" Height="28" Margin="10,6,0,0" VerticalAlignment="Top" Width="330" FontSize="16"/>
         <Image x:Name="LottoImage" HorizontalAlignment="Left" Height="222" VerticalAlignment="Top" Width="327" Source="index.png" Margin="1076,40,0,0" RenderTransformOrigin="0.529,0.432"/>
 
