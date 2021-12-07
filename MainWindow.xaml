@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:Lottoprojekt"
         mc:Ignorable="d"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-        Title="MainWindow" MaxHeight="800" MaxWidth="1400" Icon="/logo.png" WindowStartupLocation="CenterScreen">
+        Title="MainWindow" MaxHeight="800" MaxWidth="1400" Icon="/logo.png" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
 
     <Grid Background="LightGray">
         <Border MinWidth="1400" Background="White" VerticalAlignment="Top" Padding="20"></Border>
@@ -30,9 +30,9 @@
         <TextBox Name="LottoBoxSuper" BorderThickness="1" HorizontalAlignment="Left" Height="75" Margin="1108,188,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="100" Cursor="IBeam"/>
         <Button x:Name="LadeTip" Content="Tip Hochladen" HorizontalAlignment="Left" Height="75" Margin="1055,352,0,0" VerticalAlignment="Top" Width="350" Click="LadeTipHoch" Background="#b81a0f" Cursor="Hand" BorderBrush="#FFB81A0F" FontSize="30"/>
 
-        <Button x:Name="history" Click="ZeigeLetzteZiehungen" Content="Letzten Ziehungen" HorizontalAlignment="Left" Height="75" Margin="1534,352,0,0" VerticalAlignment="Top" Width="350" Background="#b81a0f" BorderBrush="#FFB81A0F" FontSize="30"/>
-        <Button Content="Gewinne abfragen" HorizontalAlignment="Left" Height="75" Margin="1534,452,0,0" VerticalAlignment="Top" Width="350" Background="#b81a0f" BorderBrush="#FFB81A0F" FontSize="30"/>
-        <Button Content="Tipps abfragen" Click="ZeigeLetzteTipps" HorizontalAlignment="Left" Height="75" Margin="1534,552,0,0" VerticalAlignment="Top" Width="350" Background="#b81a0f" Cursor="Hand" BorderBrush="#FFB81A0F" FontSize="30"/>
+        <Button x:Name="history" Click="ZeigeLetzteZiehungen" Content="Letzten Ziehungen" HorizontalAlignment="Left" Height="50" Margin="1000,352,0,0" VerticalAlignment="Top" Width="350" Background="#b81a0f" BorderBrush="#FFB81A0F" FontSize="30"/>
+        <Button Content="Gewinne abfragen" HorizontalAlignment="Left" Height="50" Margin="1000,476,0,0" VerticalAlignment="Top" Width="250" Background="#b81a0f" BorderBrush="#FFB81A0F" FontSize="20"/>
+        <Button Content="Tipps abfragen" Click="ZeigeLetzteTipps" HorizontalAlignment="Left" Height="75" Margin="1000,552,0,0" VerticalAlignment="Top" Width="350" Background="#b81a0f" Cursor="Hand" BorderBrush="#FFB81A0F" FontSize="30"/>
         <Button Content="Statistik" Click="Statistik" HorizontalAlignment="Left" Height="75" Margin="1534,652,0,0" VerticalAlignment="Top" Width="352" Background="#b81a0f" Cursor="Hand" BorderBrush="#FFB81A0F" FontSize="30"/>
 
         <TextBox x:Name="UserEID" HorizontalAlignment="Left" Height="49" Margin="10,1005,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="358" IsEnabled="False"/>
