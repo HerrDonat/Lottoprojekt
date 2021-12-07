@@ -285,6 +285,16 @@ namespace Lottoprojekt
         {
 
         }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void LottoBoxSuper_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
+        }
     }
 
 }
