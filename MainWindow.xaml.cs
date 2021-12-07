@@ -280,6 +280,11 @@ namespace Lottoprojekt
         private void Statistik(object sender, RoutedEventArgs e)
         {
         }
+
+        private void dataGrid1_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
     }
 
 }
