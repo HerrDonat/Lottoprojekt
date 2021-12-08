@@ -139,7 +139,7 @@ namespace Lottoprojekt
                 int[] zahlenZiehung = new int[6];
                 int getippteSuperZahl = 0;
                 int gezogeneSuperZahl = 0;
-                String query = "SELECT * FROM Customer INNER JOIN PulledNumbers ON Customer.Datum = PulledNumbers.Datum WHERE Customer.UserId = " + UserEID.Text;
+                String query = "SELECT TOP 1 * FROM Customer INNER JOIN PulledNumbers ON Customer.Datum = PulledNumbers.Datum WHERE Customer.UserId = " + UserEID.Text + " ORDER BY Customer.Id DESC, PulledNumbers.Id DESC";
                 SqlCommand sqlCmd = new SqlCommand(query, sqlCon);
                 try
                 {
@@ -253,37 +253,37 @@ namespace Lottoprojekt
             {
                 return 9;
             }
-            else if (korrekteTipps == 3)
-            {
-                return 8;
-            }
             else if (korrekteTipps == 3 && superZahl)
             {
                 return 7;
             }
-            else if (korrekteTipps == 4)
+            else if (korrekteTipps == 3)
             {
-                return 6;
+                return 8;
             }
             else if (korrekteTipps == 4 && superZahl)
             {
                 return 5;
             }
-            else if (korrekteTipps == 5)
+            else if (korrekteTipps == 4)
             {
-                return 4;
+                return 6;
             }
             else if (korrekteTipps == 5 && superZahl)
             {
                 return 3;
             }
-            else if (korrekteTipps == 6)
+            else if (korrekteTipps == 5)
             {
-                return 2;
+                return 4;
             }
             else if (korrekteTipps == 6 && superZahl)
             {
                 return 1;
+            }
+            else if (korrekteTipps == 6)
+            {
+                return 2;
             }
             return 0;
         }
