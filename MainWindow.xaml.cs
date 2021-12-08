@@ -48,8 +48,8 @@ namespace Lottoprojekt
         }
         int korrekteTipps = 0;
         bool superZahl = false;
-        // SqlConnection sqlCon = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=D:\Workspace\Lottoprojekt\Database.mdf;Integrated Security=True");
-        SqlConnection sqlCon = new SqlConnection(@"Data Source = (LocalDB)\MSSQLLocalDB; AttachDbFilename = C:\Users\Otto\source\repos\Lottoprojekt2\Database1.mdf; Integrated Security = True; Connect Timeout = 30");
+        SqlConnection sqlCon = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=D:\Workspace\Lottoprojekt\Database.mdf;Integrated Security=True");
+        //SqlConnection sqlCon = new SqlConnection(@"Data Source = (LocalDB)\MSSQLLocalDB; AttachDbFilename = C:\Users\Otto\source\repos\Lottoprojekt2\Database1.mdf; Integrated Security = True; Connect Timeout = 30");
         private void StarteZiehung(object sender, RoutedEventArgs e)        //Ziehung von zufälligen Zahlen wird gestartet
         {
             var rand = new Random();
@@ -112,7 +112,7 @@ namespace Lottoprojekt
                     sqlCon.Open();
                 }
                 String query = "INSERT INTO PulledNumbers VALUES ('" + DateTime.Now + "','" + this.LottoBoxOne.Text + "', '" + this.LottoBoxTwo.Text + "', '" + this.LottoBoxThree.Text + "', '" + this.LottoBoxFour.Text + "', '" + this.LottoBoxFive.Text + "', '" + this.LottoBoxSix.Text + "', '" + this.LottoBoxSuper.Text + "')";
-                SqlCommand sqlCmd = new SqlCommand(query, sqlCon);//Verbindung klappt, allerdings versucht er immer 2 mal die Daten in die DB zu schreiben, weswegen immer eine Fehlermeldung kommt
+                SqlCommand sqlCmd = new SqlCommand(query, sqlCon);
                 sqlCmd.ExecuteNonQuery();       //Derselbe Datensatz wird immer 2 mal in der DB gespeichert, bug?
                 sqlCmd.CommandType = CommandType.Text;
             }
@@ -126,28 +126,80 @@ namespace Lottoprojekt
             }
         }
 
-        private void Gewinnprüfung()
+        private void Gewinnpruefung(object sender, RoutedEventArgs e)
         {
-            try
+            if (UserEID.Text == "1")
             {
-                if (sqlCon.State == ConnectionState.Closed)
-                {
-                    sqlCon.Open();
-                }
-                String query = "";      //MongoDB Abfrage für die Anzahl der Tipps des Kunden, die mit den Zahlen der Ziehung übereinstimmen
+                MessageBox.Show("Sie sind als Mitarbeiter angemeldet!");
+            }
+            else
+            {
+
+                int[] tippsKunde = new int[6];
+                int[] zahlenZiehung = new int[6];
+                int getippteSuperZahl = 0;
+                int gezogeneSuperZahl = 0;
+                String query = "SELECT * FROM Customer INNER JOIN PulledNumbers ON Customer.Datum = PulledNumbers.Datum WHERE Customer.UserId = " + UserEID.Text;
                 SqlCommand sqlCmd = new SqlCommand(query, sqlCon);
-                sqlCmd.ExecuteNonQuery();       //Derselbe Datensatz wird immer 2 mal in der DB gespeichert, bug?
-                sqlCmd.CommandType = CommandType.Text;
+                try
+                {
+                    if (sqlCon.State == ConnectionState.Closed)
+                    {
+                        sqlCon.Open();
+                    }
+                    sqlCmd.ExecuteNonQuery();
+                    sqlCmd.CommandType = CommandType.Text;
+                    using (SqlDataReader dataReader = sqlCmd.ExecuteReader())
+                    {
+                        while (dataReader.Read())       //Ziehung und Tipps in Variablen speichern
+                        {
+                            tippsKunde[0] = Convert.ToInt32(dataReader.GetValue(3));
+                            tippsKunde[1] = Convert.ToInt32(dataReader.GetValue(4));
+                            tippsKunde[2] = Convert.ToInt32(dataReader.GetValue(5));
+                            tippsKunde[3] = Convert.ToInt32(dataReader.GetValue(6));
+                            tippsKunde[4] = Convert.ToInt32(dataReader.GetValue(7));
+                            tippsKunde[5] = Convert.ToInt32(dataReader.GetValue(8));
+                            getippteSuperZahl = Convert.ToInt32(dataReader.GetValue(9));
+                            zahlenZiehung[0] = Convert.ToInt32(dataReader.GetValue(12));
+                            zahlenZiehung[1] = Convert.ToInt32(dataReader.GetValue(13));
+                            zahlenZiehung[2] = Convert.ToInt32(dataReader.GetValue(14));
+                            zahlenZiehung[3] = Convert.ToInt32(dataReader.GetValue(15));
+                            zahlenZiehung[4] = Convert.ToInt32(dataReader.GetValue(16));
+                            zahlenZiehung[5] = Convert.ToInt32(dataReader.GetValue(17));
+                            gezogeneSuperZahl = Convert.ToInt32(dataReader.GetValue(18));
+
+                        }
+                    }
+                    if (zahlenZiehung[0] != 0 && zahlenZiehung[1] != 0) //Wenn leer, kann davon ausgegangen werden dass heute noch keine Ziehung durchgeführt wurde
+                    {
+                        foreach (int item in tippsKunde)
+                        {
+                            if (item == zahlenZiehung[0] || item == zahlenZiehung[1] || item == zahlenZiehung[2] || item == zahlenZiehung[3] || item == zahlenZiehung[4] || item == zahlenZiehung[5])
+                            {
+                                korrekteTipps++;
+                            }
+                        }
+                        if (gezogeneSuperZahl == getippteSuperZahl)
+                        {
+                            superZahl = true;
+                        }
+                        MessageBox.Show("Sie haben bei der heutigen Ziehung folgende Gewinnklasse erreicht: " + BerechneGewinnKlasse(korrekteTipps, superZahl));
+                    }
+                    else
+                    {
+                        MessageBox.Show("Die heutige Ziehung wurde noch nicht gestartet, bitte warten Sie auf einen Mitarbeiter.");
+                    }
+
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+                finally
+                {
+                    sqlCon.Close();     //Verbindung zur DB wird beendet
+                }
             }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-            finally
-            {
-                sqlCon.Close();     //Verbindung zur DB wird beendet
-            }
-            BerechneGewinnKlasse(korrekteTipps, superZahl);
         }
 
         private void LadeTipHoch(object sender, RoutedEventArgs e)      //Tipp des Kunden wird hochgeladen und in der DB gespeichert
@@ -259,41 +311,33 @@ namespace Lottoprojekt
 
         private void ZeigeLetzteTipps(object sender, RoutedEventArgs e)
         {
-            try
+            if (UserEID.Text == "1")
             {
-                sqlCon.Open();
-                string query = "select Datum, number1, number2, number3, number4, number5, number6, numberSuper from Customer WHERE UserId = " + UserEID.Text;      //ID des Kunden einfügen, der gerade angemeldet ist
-                SqlCommand cmd = new SqlCommand(query, sqlCon);
-                cmd.ExecuteNonQuery();
-                SqlDataAdapter dataAd = new SqlDataAdapter(cmd);
-                DataTable dt = new DataTable("tblPickByDate");
-                dataAd.Fill(dt);
-                dataGrid1.ItemsSource = dt.DefaultView;
-                dataAd.Update(dt);
-                sqlCon.Close();
+                MessageBox.Show("Sie sind als Mitarbeiter angemeldet!");
             }
-            catch (Exception)
+            else
             {
+                try
+                {
+                    sqlCon.Open();
+                    string query = "select Datum, number1, number2, number3, number4, number5, number6, numberSuper from Customer WHERE UserId = " + UserEID.Text;      //ID des Kunden einfügen, der gerade angemeldet ist
+                    SqlCommand cmd = new SqlCommand(query, sqlCon);
+                    cmd.ExecuteNonQuery();
+                    SqlDataAdapter dataAd = new SqlDataAdapter(cmd);
+                    DataTable dt = new DataTable("tblPickByDate");
+                    dataAd.Fill(dt);
+                    dataGrid1.ItemsSource = dt.DefaultView;
+                    dataAd.Update(dt);
+                    sqlCon.Close();
+                }
+                catch (Exception)
+                {
 
+                }
             }
         }
         private void Statistik(object sender, RoutedEventArgs e)
         {
-        }
-
-        private void dataGrid1_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-
-        }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void LottoBoxSuper_TextChanged(object sender, TextChangedEventArgs e)
-        {
-
         }
     }
 

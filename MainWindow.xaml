@@ -27,17 +27,17 @@
         <TextBox Name="LottoBoxFour" BorderThickness="1" HorizontalAlignment="Left" Height="50" Margin="332,153,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="70" Cursor="IBeam" FontSize="20"/>
         <TextBox Name="LottoBoxFive" BorderThickness="1" HorizontalAlignment="Left" Height="50" Margin="432,153,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="70" Cursor="IBeam" FontSize="20"/>
         <TextBox Name="LottoBoxSix" BorderThickness="1" HorizontalAlignment="Left" Height="50" Margin="532,153,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="70" Cursor="IBeam" FontSize="20"/>
-        <TextBox Name="LottoBoxSuper" BorderThickness="1" HorizontalAlignment="Left" Height="50" Margin="632,153,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="70" Cursor="IBeam" FontSize="25" TextAlignment="Center" TextChanged="LottoBoxSuper_TextChanged"/>
+        <TextBox Name="LottoBoxSuper" BorderThickness="1" HorizontalAlignment="Left" Height="50" Margin="632,153,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="70" Cursor="IBeam" FontSize="25" TextAlignment="Center"/>
         <Button x:Name="LadeTip" Content="Tip Hochladen" HorizontalAlignment="Left" Height="50" Margin="502,247,0,0" VerticalAlignment="Top" Width="200" Click="LadeTipHoch" Background="#b81a0f" Cursor="Hand" BorderBrush="#FFB81A0F" FontSize="20"/>
 
         <Button x:Name="history" Click="ZeigeLetzteZiehungen" Content="Letzten Ziehungen" HorizontalAlignment="Left" Height="50" Margin="760,247,0,0" VerticalAlignment="Top" Width="200" Background="#b81a0f" BorderBrush="#FFB81A0F" FontSize="20" Cursor="Hand"/>
-        <Button Content="Gewinne abfragen" HorizontalAlignment="Left" Height="50" Margin="760,317,0,0" VerticalAlignment="Top" Width="200" Background="#b81a0f" BorderBrush="#FFB81A0F" FontSize="20" Click="Button_Click" Cursor="Hand"/>
+        <Button Content="Gewinne abfragen" HorizontalAlignment="Left" Height="50" Margin="760,317,0,0" VerticalAlignment="Top" Width="200" Background="#b81a0f" BorderBrush="#FFB81A0F" FontSize="20" Click="Gewinnpruefung" Cursor="Hand"/>
         <Button Content="Tipps abfragen" Click="ZeigeLetzteTipps" HorizontalAlignment="Left" Height="50" Margin="760,387,0,0" VerticalAlignment="Top" Width="200" Background="#b81a0f" Cursor="Hand" BorderBrush="#FFB81A0F" FontSize="20"/>
         <Button Content="Statistik" Click="Statistik" HorizontalAlignment="Left" Height="50" Margin="760,457,0,0" VerticalAlignment="Top" Width="200" Background="#b81a0f" Cursor="Hand" BorderBrush="#FFB81A0F" FontSize="20"/>
 
         <TextBox x:Name="UserEID" Text="ID:" HorizontalAlignment="Left" Height="50" Margin="10,524,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="350" IsEnabled="False" Cursor="IBeam"/>
         <Label x:Name="MitarbeiterText" Content="Sie sind als Mitarbeiter angemeldet." HorizontalAlignment="Right" Height="25" Margin="0,532,26,0" VerticalAlignment="Top" Width="208" FontWeight="Bold" Visibility="Hidden"/>
-        <DataGrid x:Name="dataGrid1" AutoGenerateColumns="True" HorizontalAlignment="Left" Height="257" Margin="32,247,0,0" VerticalAlignment="Top" Width="429" SelectionChanged="dataGrid1_SelectionChanged"/>
+        <DataGrid x:Name="dataGrid1" AutoGenerateColumns="True" HorizontalAlignment="Left" Height="257" Margin="32,247,0,0" VerticalAlignment="Top" Width="429"/>
         <Button x:Name="ApplyNumbers" Content="Ziehung starten" HorizontalAlignment="Left" Height="50" Margin="502,247,0,0" VerticalAlignment="Top" Width="200" Click="StarteZiehung" Background="#b81a0f" Cursor="Hand" BorderBrush="#FFB81A0F" FontSize="20" FontWeight="Medium"/>
         <Border Width="20"  BorderThickness="1" BorderBrush="#00000000" RenderTransformOrigin="0.39,0.503" Margin="954,204,0,5"/>
 
