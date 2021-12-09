@@ -172,7 +172,7 @@ namespace Lottoprojekt
                     }
                     if (zahlenZiehung[0] != 0 && zahlenZiehung[1] != 0) //Wenn leer, kann davon ausgegangen werden dass heute noch keine Ziehung durchgeführt wurde
                     {
-                        foreach (int item in tippsKunde)
+                        foreach (int item in tippsKunde)        //Tipps werden mit Ziehung verglichen
                         {
                             if (item == zahlenZiehung[0] || item == zahlenZiehung[1] || item == zahlenZiehung[2] || item == zahlenZiehung[3] || item == zahlenZiehung[4] || item == zahlenZiehung[5])
                             {
@@ -255,7 +255,7 @@ namespace Lottoprojekt
             }
         }
 
-        private int BerechneGewinnKlasse(int korrekteTipps, bool superZahl)      //Muss aufgerufen werden, rückgegebene Zahl ist die Gewinnklasse(korrekteTipps muss richtig definiert und mit Zahlen in DB verglichen werden
+        private int BerechneGewinnKlasse(int korrekteTipps, bool superZahl)
         {
             if (korrekteTipps == 2 && superZahl)
             {
@@ -301,7 +301,7 @@ namespace Lottoprojekt
             try
             {
                 sqlCon.Open();
-                string query = "select Datum, number1, number2, number3, number4, number5, number6, numberSuper from PulledNumbers";      //ID des Kunden einfügen, der gerade angemeldet ist
+                string query = "select Datum, number1, number2, number3, number4, number5, number6, numberSuper from PulledNumbers";
                 SqlCommand cmd = new SqlCommand(query, sqlCon);
                 cmd.ExecuteNonQuery();
                 SqlDataAdapter dataAd = new SqlDataAdapter(cmd);
