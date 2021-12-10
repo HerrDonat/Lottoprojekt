@@ -346,7 +346,73 @@ namespace Lottoprojekt
         }
         private void Statistik(object sender, RoutedEventArgs e)
         {
+            sqlCon.Open();
+            var query = "SELECT number1, number2, number3, number4, number5, number6 FROM PulledNumbers";
+            SqlCommand sqlCmd = new SqlCommand(query, sqlCon);
+            sqlCmd.ExecuteNonQuery();
+            DataTable dt = new DataTable("tblPickByDate");
+            dt.Columns.Add("1", typeof(int));
+            dt.Columns.Add("2", typeof(int));
+            dt.Columns.Add("3", typeof(int));
+            dt.Columns.Add("4", typeof(int));
+            dt.Columns.Add("5", typeof(int));
+            dt.Columns.Add("6", typeof(int));
+            dt.Columns.Add("7", typeof(int));
+            dt.Columns.Add("8", typeof(int));
+            dt.Columns.Add("9", typeof(int));
+            dt.Columns.Add("10", typeof(int));
+            dt.Columns.Add("11", typeof(int));
+            dt.Columns.Add("12", typeof(int));
+            dt.Columns.Add("13", typeof(int));
+            dt.Columns.Add("14", typeof(int));
+            dt.Columns.Add("15", typeof(int));
+            dt.Columns.Add("16", typeof(int));
+            dt.Columns.Add("17", typeof(int));
+            dt.Columns.Add("18", typeof(int));
+            dt.Columns.Add("19", typeof(int));
+            dt.Columns.Add("20", typeof(int));
+            dt.Columns.Add("21", typeof(int));
+            dt.Columns.Add("22", typeof(int));
+            dt.Columns.Add("23", typeof(int));
+            dt.Columns.Add("24", typeof(int));
+            dt.Columns.Add("25", typeof(int));
+            dt.Columns.Add("26", typeof(int));
+            dt.Columns.Add("27", typeof(int));
+            dt.Columns.Add("28", typeof(int));
+            dt.Columns.Add("29", typeof(int));
+            dt.Columns.Add("30", typeof(int));
+            dt.Columns.Add("31", typeof(int));
+            dt.Columns.Add("32", typeof(int));
+            dt.Columns.Add("33", typeof(int));
+            dt.Columns.Add("34", typeof(int));
+            dt.Columns.Add("35", typeof(int));
+            dt.Columns.Add("36", typeof(int));
+            dt.Columns.Add("37", typeof(int));
+            dt.Columns.Add("38", typeof(int));
+            dt.Columns.Add("39", typeof(int));
+            dt.Columns.Add("40", typeof(int));
+            dt.Columns.Add("41", typeof(int));
+            dt.Columns.Add("42", typeof(int));
+            dt.Columns.Add("43", typeof(int));
+            dt.Columns.Add("44", typeof(int));
+            dt.Columns.Add("45", typeof(int));
+            dt.Columns.Add("46", typeof(int));
+            dt.Columns.Add("47", typeof(int));
+            dt.Columns.Add("48", typeof(int));
+            dt.Columns.Add("49", typeof(int));
+            dataGrid1.ItemsSource = dt.DefaultView;
+            //using (SqlDataReader dataReader = sqlCmd.ExecuteReader())
+            //{
+            //    int[] Stats = new int[100];
+            //    while (dataReader.Read())
+            //    {
+            //        for (int i = 0; i < 100; i++)
+            //        {
+            //            Stats[i]= Convert.ToInt32(dataReader.GetValue(i));
+            //        }
+            //    }
+            //}
+            sqlCon.Close();
         }
     }
-
 }
