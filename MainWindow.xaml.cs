@@ -48,8 +48,8 @@ namespace Lottoprojekt
         }
         int korrekteTipps = 0;
         bool superZahl = false;
-        SqlConnection sqlCon = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=D:\Workspace\Lottoprojekt\Database.mdf;Integrated Security=True");
-        //SqlConnection sqlCon = new SqlConnection(@"Data Source = (LocalDB)\MSSQLLocalDB; AttachDbFilename = C:\Users\Otto\source\repos\Lottoprojekt2\Database1.mdf; Integrated Security = True; Connect Timeout = 30");
+        //SqlConnection sqlCon = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=D:\Workspace\Lottoprojekt\Database.mdf;Integrated Security=True");
+        SqlConnection sqlCon = new SqlConnection(@"Data Source = (LocalDB)\MSSQLLocalDB; AttachDbFilename = C:\Users\Otto\source\repos\Lottoprojekt\Database1.mdf; Integrated Security = True; Connect Timeout = 30");
         private void StarteZiehung(object sender, RoutedEventArgs e)        //Ziehung von zufälligen Zahlen wird gestartet
         {
             var rand = new Random();
@@ -111,9 +111,9 @@ namespace Lottoprojekt
                 {
                     sqlCon.Open();
                 }
-                String query = "INSERT INTO PulledNumbers VALUES ('" + DateTime.Now + "','" + this.LottoBoxOne.Text + "', '" + this.LottoBoxTwo.Text + "', '" + this.LottoBoxThree.Text + "', '" + this.LottoBoxFour.Text + "', '" + this.LottoBoxFive.Text + "', '" + this.LottoBoxSix.Text + "', '" + this.LottoBoxSuper.Text + "')";
+                String query = "INSERT INTO PulledNumbers VALUES ('" + DateTime.Now.ToString("MM/dd/yyyy") + "','" + this.LottoBoxOne.Text + "', '" + this.LottoBoxTwo.Text + "', '" + this.LottoBoxThree.Text + "', '" + this.LottoBoxFour.Text + "', '" + this.LottoBoxFive.Text + "', '" + this.LottoBoxSix.Text + "', '" + this.LottoBoxSuper.Text + "')";
                 SqlCommand sqlCmd = new SqlCommand(query, sqlCon);
-                sqlCmd.ExecuteNonQuery();       //Derselbe Datensatz wird immer 2 mal in der DB gespeichert, bug?
+                sqlCmd.ExecuteNonQuery();      
                 sqlCmd.CommandType = CommandType.Text;
             }
             catch (Exception ex)
@@ -229,11 +229,11 @@ namespace Lottoprojekt
                         {
                             sqlCon.Open();
                         }                                                                                       //Hier muss die ID gegen Daten der DB ausgetauscht werden, damit immer die Ziehungen derjenigen Person zugewiesen werden kann, die angemeldet ist
-                        String query = "INSERT INTO Customer VALUES ('" + UserEID.Text + "', '" + DateTime.Now + "', '" + this.LottoBoxOne.Text + "', '" + this.LottoBoxTwo.Text + "', '" + this.LottoBoxThree.Text + "', '" + this.LottoBoxFour.Text + "', '" + this.LottoBoxFive.Text + "', '" + this.LottoBoxSix.Text + "', '" + this.LottoBoxSuper.Text + "')";
+                        String query = "INSERT INTO Customer VALUES ('" + UserEID.Text + "', '" + DateTime.Now.ToString("MM/dd/yyyy") + "', '" + this.LottoBoxOne.Text + "', '" + this.LottoBoxTwo.Text + "', '" + this.LottoBoxThree.Text + "', '" + this.LottoBoxFour.Text + "', '" + this.LottoBoxFive.Text + "', '" + this.LottoBoxSix.Text + "', '" + this.LottoBoxSuper.Text + "')";
                         SqlCommand sqlCmd = new SqlCommand(query, sqlCon);      //Eingegebene Tipps vom Kunden werden in der DB gespeichert
                         sqlCmd.ExecuteNonQuery();
                         sqlCmd.CommandType = CommandType.Text;
-                        MessageBox.Show("Ihr Tipp wurde erfolgreich abgegeben und gilt für die Ziehung am " + DateTime.Now.ToString("MM/dd/yyyy"));
+                        MessageBox.Show("Ihr Tipp wurde erfolgreich abgegeben und gilt für die Ziehung am " + DateTime.Now.ToString("dd/MM/yyyy"));
                     }
                     catch (Exception ex)
                     {
